@@ -2,7 +2,7 @@
 *
 * -----------------------------------------------------------------------------
 *
-* Template : Techzen - IT Solutions & Technology HTML Template
+* Template : Techyrushi - IT Solutions & Technology 
 * Author : rs-theme
 * Author URI : http://www.rstheme.com/
 *

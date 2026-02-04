@@ -19,7 +19,7 @@
                 </div>
                 <h1 class="title-2" data-animation="fadeInLeft" data-delay="0.6s">
                   Tech Solutions For
-                  <span class="color">Digital</span> Future
+                  Digital Future
                 </h1>
                 <p data-animation="fadeInLeft" data-delay="0.9s">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -79,7 +79,7 @@
                 </div>
                 <h1 data-animation="fadeInLeft" data-delay="0.6s" class="title-2">
                   Surfing The Waves of IT
-                  <span class="color">Innovation</span>
+                  Innovation
                 </h1>
                 <p data-animation="fadeInLeft" data-delay="0.9s">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -316,7 +316,7 @@
           </div>
           <h2 class="title split-in-fade">
             We provide advanced
-            <span class="color">solutions to growing</span> your online
+            solutions to growing your online
             business.
           </h2>
         </div>
@@ -494,7 +494,7 @@
               <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon" />
             </div>
             <h2 class="title split-in-fade">
-              Reasons to <span class="color">count</span> on us
+              Reasons to count on us
             </h2>
             <p>
               Bring to the table win-win survival strategies to ensure
@@ -634,7 +634,7 @@
             <img src="assets/images/heart-pulse-rate-white.svg" alt="icon" />
           </div>
           <h2 class="title split-in-fade">
-            Who we <span class="color">work</span> with
+            Who we work with
           </h2>
           <p>
             Phosfluorescently engage worldwide methodologies with in
@@ -738,7 +738,7 @@
             <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon" />
           </div>
           <h2 class="title split-in-fade">
-            Process we <span class="color">follow</span>
+            Process we follow
           </h2>
         </div>
       </div>
@@ -818,7 +818,7 @@
           </div>
           <h2 class="title split-in-fade">
             Our recent launched
-            <span class="color">projects available</span> into market
+            projects available into market
           </h2>
           <a class="main-btn" href="project">View All Projects <i class="ri-arrow-right-fill"></i></a>
         </div>
@@ -913,7 +913,7 @@
             <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon" />
           </div>
           <h2 class="title split-in-fade">
-            What Customers Said About Our Techzen
+            What Customers Said About Our Techyrushi
           </h2>
         </div>
       </div>
@@ -1077,7 +1077,7 @@
       <div class="col-lg-12">
         <div class="rs-brand__top-title">
           <img src="assets/images/heart-pulse-rate-orange-2.svg" alt="" />
-          <span>More than 5K+ Brands with work Techzen</span>
+          <span>More than 5K+ Brands with work Techyrushi</span>
           <img src="assets/images/heart-pulse-rate-orange.svg" alt="" />
         </div>
       </div>
@@ -1360,7 +1360,7 @@
                   <div class="author-thumb">
                     <img src="assets/images/testimonial/testi1.jpg" alt="" />
                   </div>
-                  <span>by Techzen</span>
+                  <span>by Techyrushi</span>
                 </a>
               </div>
               <div class="rs-link">
@@ -1409,7 +1409,7 @@
                   <div class="author-thumb">
                     <img src="assets/images/testimonial/testi2.jpg" alt="" />
                   </div>
-                  <span>by Techzen</span>
+                  <span>by Techyrushi</span>
                 </a>
               </div>
               <div class="rs-link">
@@ -1458,7 +1458,7 @@
                   <div class="author-thumb">
                     <img src="assets/images/testimonial/testi3.jpg" alt="" />
                   </div>
-                  <span>by Techzen</span>
+                  <span>by Techyrushi</span>
                 </a>
               </div>
               <div class="rs-link">
@@ -1490,7 +1490,8 @@
           <h2 class="title split-in-fade">Send message</h2>
         </div>
         <div class="rs-contact__form-box">
-          <form id="contact-form" action="https://demo.rstheme.com/html/techzen/assets/php/contact.php" method="post">
+          <form id="contact-form" action="https://demo.rstheme.com/html/Techyrushi/assets/php/contact.php"
+            method="post">
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-box">

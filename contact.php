@@ -31,14 +31,14 @@
                     <div class="rs-contact-page__info-box">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h5 class="title mb-15">USA Branch:</h5>
+                                <h5 class="title mb-15">India Branch:</h5>
                                 <div class="info-box-item">
                                     <div class="rs-info-icon">
                                         <i class="ri-map-2-line"></i>
                                     </div>
                                     <div class="rs-info-contact">
                                         <span>Address</span>
-                                        <h5 class="title">2972 Westheimer Rd. Santa Ana </h5>
+                                        <h5 class="title">Nashik, Maharashtra</h5>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="rs-info-contact">
                                         <span>Call Us</span>
-                                        <h5 class="title"><a href="tel:+85526691234">+855 (2669) 1234</a> </h5>
+                                        <h5 class="title"><a href="tel:+918446225859">(+91) 8446225859</a> </h5>    
                                     </div>
                                 </div>
                                 <div class="info-box-item">
@@ -58,13 +58,13 @@
                                     </div>
                                     <div class="rs-info-contact">
                                         <span>Email Us</span>
-                                        <h5 class="title"><a href="mailto:info@support.com">info@support.com</a></h5>
+                                        <h5 class="title"><a href="mailto:techyrushi.talks@gmail.com">techyrushi.talks@gmail.com</a></h5>   
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="rs-contact-page__info-box mt-20">
+                    <!-- <div class="rs-contact-page__info-box mt-20">
                         <div class="row">
                             <div class="col-lg-6">
                                 <h5 class="title mb-15">UK Branch:</h5>
@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="rs-contact-page__info-social mt-20">
                         <h5 class="title">Follow Us:</h5>
                         <ul>
@@ -108,7 +108,7 @@
                             <li><a href="#"><i class="ri-linkedin-fill"></i></a></li>
                             <li><a href="#"><i class="ri-youtube-fill"></i></a></li>
                             <li><a href="#"><i class="ri-github-fill"></i></a></li>
-                            <li><a href="#"><i class="ri-vimeo-fill"></i></a></li>
+                            <!-- <li><a href="#"><i class="ri-vimeo-fill"></i></a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
             <div class="col-lg-12">
                 <div class="rs-brand__top-title">
                     <img src="assets/images/heart-pulse-rate-orange-2.svg" alt="">
-                    <span>More than 5K+ Brands with work Techzen</span>
+                    <span>More than 5K+ Brands with work Techyrushi</span>
                     <img src="assets/images/heart-pulse-rate-orange.svg" alt="">
                 </div>
                 <div class="rs-contact-brand__box mb-30">

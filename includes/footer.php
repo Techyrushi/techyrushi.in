@@ -10,7 +10,7 @@
                         </div>
                         <div class="content">
                             <span>Contact Us</span>
-                            <a href="tel:+004555012065">(+004) 555 - 012 - 065</a>
+                            <a href="tel:+918446225859">(+91) 8446225859</a>    
                         </div>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                         </div>
                         <div class="content">
                             <span>Email Us</span>
-                            <a href="mailto:info@yourname.com">info@yourname.com</a>
+                            <a href="mailto:techyrushi.talks@gmail.com">techyrushi.talks@gmail.com</a>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="content">
                             <span>Address</span>
-                            <h4 class="title">2972 Westheimer 96 Rd.</h4>
+                            <h4 class="title">Nashik, Maharashtra</h4>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                     <div class="rs-footer__menu-box">
                         <ul>
                             <li><a href="privacy">Privacy Policy</a></li>
-                            <li><a href="terms&conditions">Terms of use</a></li>
+                            <li><a href="terms">Terms of use</a></li>
                             <li><a href="disclaimer">Disclaimer</a></li>
                             <li><a href="sitemap">Sitemap</a></li>  
                         </ul>
@@ -239,6 +239,6 @@
 <script src="assets/js/main.js"></script>
 </body>
 
-<!-- Mirrored from demo.rstheme.com/html/techzen/index-3 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:48:15 GMT -->
+<!-- Mirrored from demo.rstheme.com/html/Techyrushi/index-3 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:48:15 GMT -->
 
 </html>

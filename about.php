@@ -481,7 +481,7 @@
             <div class="col-lg-12">
                 <div class="rs-brand__top-title">
                     <img src="assets/images/heart-pulse-rate-orange-2.svg" alt="">
-                    <span>More than 5K+ Brands with work Techzen</span>
+                    <span>More than 5K+ Brands with work Techyrushi</span>
                     <img src="assets/images/heart-pulse-rate-orange.svg" alt="">
                 </div>
             </div>

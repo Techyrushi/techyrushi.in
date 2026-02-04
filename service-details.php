@@ -254,7 +254,7 @@
                         <div class="rs-faq__wrapper">
                             <div class="accordion active">
                                 <div class="accordion_tab active">
-                                    01 How to use Techzen?
+                                    01 How to use Techyrushi?
                                     <div class="accordion_arrow">
                                         <i class="ri-add-fill"></i>
                                     </div>

@@ -2,11 +2,11 @@
 <html class="no-js" lang="en">
 
 
-<!-- Mirrored from demo.rstheme.com/html/techzen/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:48:32 GMT -->
+<!-- Mirrored from demo.rstheme.com/html/Techyrushi/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:48:32 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Techzen - IT Solutions & Technology HTML Template</title>
+    <title>Techyrushi - IT Solutions & Technology </title>
     <meta name="robots" content="noindex, follow">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -114,8 +114,8 @@
                 <div class="container">
                     <div class="rs-menu-area">
                         <div class="logo-area">
-                            <a href="index-2.html"><img src="assets/images/techzen_logo_home_2.png" alt=""></a>
-                            <a href="index-2.html"><img src="assets/images/techzen_logo_home_2.png" alt=""></a>
+                            <a href="index-2.html"><img src="assets/images/Techyrushi_logo_home_2.png" alt=""></a>
+                            <a href="index-2.html"><img src="assets/images/Techyrushi_logo_home_2.png" alt=""></a>
                         </div>
                         <div class="rs-header-rightside">
                             <div class="main-menu hidden-md">
@@ -501,7 +501,7 @@
                             </div>
                             <div class="content">
                                 <span>Contact Us</span>
-                                <a href="tel:+004555012065">(+004) 555 - 012 - 065</a>
+                                <a href="tel:+918446225859">(+91) 8446225859</a>
                             </div>
                         </div>
                     </div>
@@ -512,7 +512,7 @@
                             </div>
                             <div class="content">
                                 <span>Email Us</span>
-                                <a href="mailto:info@yourname.com">info@yourname.com</a>
+                                <a href="mailto:techyrushi.talks@gmail.com">techyrushi.talks@gmail.com</a>
                             </div>
                         </div>
                     </div>
@@ -523,7 +523,7 @@
                             </div>
                             <div class="content">
                                 <span>Address</span>
-                                <h4 class="title"> 2972 Westheimer 96 Rd. </h4>
+                                <h4 class="title"> Nashik, Maharashtra </h4>
                             </div>
                         </div>
                     </div>
@@ -535,7 +535,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="rs-footer__about-box">
-                            <a href="index-3.html"><img src="assets/images/techzen_logo_home_2.png" alt=""></a>
+                            <a href="index-3.html"><img src="assets/images/Techyrushi_logo_home_2.png" alt=""></a>
                             <p> Proactively envisioned multimedia based expertise and cross-media growth strategies seamlessly.</p>
                             <div class="rs-footer__social">
                                 <ul>
@@ -567,7 +567,7 @@
                                 <h4 class="title">Information</h4>
                             </div>
                             <ul>
-                                <li><a href="about.html"><i class="ri-arrow-right-fill"></i> About Techzen</a></li>
+                                <li><a href="about.html"><i class="ri-arrow-right-fill"></i> About Techyrushi</a></li>
                                 <li><a href="team.html"><i class="ri-arrow-right-fill"></i> Our Team</a></li>
                                 <li><a href="pricing.html"><i class="ri-arrow-right-fill"></i> Pricing Plan</a></li>
                                 <li><a href="project.html"><i class="ri-arrow-right-fill"></i> Our Projects</a></li>
@@ -599,7 +599,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-5">
                         <div class="rs-footer__copyright-text">
-                            <p>© 2024 Techzen. Designed By <a target="_blank" href="https://rstheme.com/">RSTheme.</a></p>
+                            <p>© 2024 Techyrushi. Designed By <a target="_blank" href="https://rstheme.com/">RSTheme.</a></p>
                         </div>
                     </div>
                     <div class="col-lg-7">
@@ -696,5 +696,5 @@
 </body>
 
 
-<!-- Mirrored from demo.rstheme.com/html/techzen/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:48:32 GMT -->
+<!-- Mirrored from demo.rstheme.com/html/Techyrushi/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:48:32 GMT -->
 </html>

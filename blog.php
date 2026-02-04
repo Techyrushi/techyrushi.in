@@ -31,7 +31,7 @@
                             </a>
                             <div class="rs-meta-box">
                                 <ul>
-                                    <li><i class="ri-user-3-line"></i> Techzen</li>
+                                    <li><i class="ri-user-3-line"></i> Techyrushi</li>
                                     <li><i class="ri-calendar-line"></i> March 17, 2023</li>
                                     <li><a href="#"><i class="ri-price-tag-3-line"></i> Design</a></li>
                                 </ul>
@@ -56,7 +56,7 @@
                             </a>
                             <div class="rs-meta-box">
                                 <ul>
-                                    <li><i class="ri-user-3-line"></i> Techzen</li>
+                                    <li><i class="ri-user-3-line"></i> Techyrushi</li>
                                     <li><i class="ri-calendar-line"></i> March 17, 2023</li>
                                     <li><a href="#"><i class="ri-price-tag-3-line"></i> Design</a></li>
                                 </ul>
@@ -81,7 +81,7 @@
                             </a>
                             <div class="rs-meta-box">
                                 <ul>
-                                    <li><i class="ri-user-3-line"></i> Techzen</li>
+                                    <li><i class="ri-user-3-line"></i> Techyrushi</li>
                                     <li><i class="ri-calendar-line"></i> March 17, 2023</li>
                                     <li><a href="#"><i class="ri-price-tag-3-line"></i> Design</a></li>
                                 </ul>
@@ -167,7 +167,7 @@
                                 <a href="blog-single"><img src="assets/images/blog/side-blog-4.jpg" alt=""></a>
                             </div>
                             <div class="rs-content">
-                                <h5 class="title"><a href="blog-single">Techzen App Development Complete Guide
+                                <h5 class="title"><a href="blog-single">Techyrushi App Development Complete Guide
                                     </a></h5>
                                 <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
                             </div>

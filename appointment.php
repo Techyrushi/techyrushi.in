@@ -30,7 +30,7 @@
                         <p>Completely synergize resource taxing relationships via premier niche markets professionally.
                         </p>
                     </div>
-                    <form id="contact-form" action="https://demo.rstheme.com/html/techzen/assets/php/contact.php"
+                    <form id="contact-form" action="https://demo.rstheme.com/html/Techyrushi/assets/php/contact.php"
                         method="post">
                         <div class="row">
                             <div class="col-lg-6">

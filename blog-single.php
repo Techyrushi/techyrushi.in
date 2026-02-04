@@ -159,7 +159,7 @@
                                 <a href="blog-single"><img src="assets/images/blog/side-blog-4.jpg" alt=""></a>
                             </div>
                             <div class="rs-content">
-                                <h5 class="title"><a href="blog-single">Techzen App Development Complete Guide </a>
+                                <h5 class="title"><a href="blog-single">Techyrushi App Development Complete Guide </a>
                                 </h5>
                                 <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
                             </div>

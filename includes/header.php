@@ -1,11 +1,15 @@
+<?php
+$current_page = basename($_SERVER['PHP_SELF'], ".php");
+$extra_header_class = ($current_page !== 'index' && $current_page !== '') ? ' other-page-header' : '';
+?>
 <!doctype html>
 <html class="no-js" lang="en">
-<!-- Mirrored from demo.rstheme.com/html/techzen/index-3 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:47:48 GMT -->
+<!-- Mirrored from demo.rstheme.com/html/Techyrushi/index-3 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:47:48 GMT -->
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Techzen - IT Solutions & Technology HTML Template</title>
+    <title>Techyrushi - IT Solutions & Technology </title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -65,7 +69,7 @@
     <!--======== Header start ========-->
     <div class="full-width-header">
         <!--Header Start-->
-        <header id="rs-header" class="rs-header">
+        <header id="rs-header" class="rs-header<?php echo $extra_header_class; ?>">
             <!-- Menu Start -->
             <div class="menu-area menu-sticky">
                 <!-- Offer Section End -->
@@ -85,37 +89,43 @@
                             <div class="main-menu hidden-md">
                                 <ul class="nav-menu">
                                     <li>
-                                        <a href="index" class="active">
+                                        <a href="index" <?php echo ($current_page == 'index' || $current_page == '') ? 'class="active"' : ''; ?>>
                                             <cite class="rs_item_wrap"> Home </cite>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="about">About</a>
+                                        <a href="about" <?php echo ($current_page == 'about') ? 'class="active"' : ''; ?>>About</a>
                                     </li>
                                     <li class="has-clid relative">
-                                        <a href="services">
+                                        <a href="services" <?php echo ($current_page == 'services' || $current_page == 'service-details') ? 'class="active"' : ''; ?>>
                                             <cite class="rs_item_wrap"> Services </cite>
                                         </a>
                                         <ul class="sub-menu">
                                             <li>
-                                                <a href="service">Service Style 01</a>
+                                                <a href="service-details">IT Consultation</a>
                                             </li>
                                             <li>
-                                                <a href="service">Service Style 02</a>
+                                                <a href="service-details">Data Security</a>
+                                            </li>
+                                            <li>
+                                                <a href="service-details">Digital Marketing</a>
+                                            </li>
+                                            <li>
+                                                <a href="service-details">Cloud Services</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="project">
+                                        <a href="project" <?php echo ($current_page == 'project') ? 'class="active"' : ''; ?>>
                                             <cite class="rs_item_wrap"> Projects </cite>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="blog">
+                                        <a href="blog" <?php echo ($current_page == 'blog') ? 'class="active"' : ''; ?>>
                                             <cite class="rs_item_wrap"> Blog </cite>
                                         </a>
                                     </li>
-                                    <li><a href="contact">Contact</a></li>
+                                    <li><a href="contact" <?php echo ($current_page == 'contact') ? 'class="active"' : ''; ?>>Contact</a></li>
                                 </ul>
                                 <!-- //.nav-menu -->
                             </div>
@@ -163,10 +173,16 @@
                     <a href="services">Services</a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="services">Service Style 01</a>
+                            <a href="service-details">IT Consultation</a>
                         </li>
                         <li>
-                            <a href="services">Service Style 02</a>
+                            <a href="service-details">Data Security</a>
+                        </li>
+                        <li>
+                            <a href="service-details">Digital Marketing</a>
+                        </li>
+                        <li>
+                            <a href="service-details">Cloud Services</a>
                         </li>
                     </ul>
                 </li>
