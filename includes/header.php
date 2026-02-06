@@ -1,17 +1,37 @@
 <?php
+require_once 'includes/db.php';
+require_once 'includes/track_visit.php';
 $current_page = basename($_SERVER['PHP_SELF'], ".php");
 $extra_header_class = ($current_page !== 'index' && $current_page !== '') ? ' other-page-header' : '';
+
+// SEO Logic
+if (!isset($page_title)) {
+    // Determine route name for DB lookup
+    $route = $current_page;
+    if ($route == '') $route = 'index';
+    
+    $stmt_seo = $pdo->prepare("SELECT * FROM seo_metadata WHERE route = ?");
+    $stmt_seo->execute([$route]);
+    $seo = $stmt_seo->fetch();
+    
+    if ($seo) {
+        $page_title = $seo['page_title'];
+        $meta_description = $seo['meta_description'];
+        $meta_keywords = $seo['meta_keywords'];
+    }
+}
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
-<!-- Mirrored from demo.rstheme.com/html/Techyrushi/index-3 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:47:48 GMT -->
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Techyrushi - IT Solutions & Technology </title>
+    <base href="/techzen/">
+    <title><?php echo isset($page_title) ? htmlspecialchars($page_title) . ' - Techyrushi' : 'Techyrushi - IT Solutions & Technology'; ?></title>
     <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="" />
+    <meta name="description" content="<?php echo isset($meta_description) ? htmlspecialchars($meta_description) : ''; ?>" />
+    <meta name="keywords" content="<?php echo isset($meta_keywords) ? htmlspecialchars($meta_keywords) : ''; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
@@ -101,18 +121,15 @@ $extra_header_class = ($current_page !== 'index' && $current_page !== '') ? ' ot
                                             <cite class="rs_item_wrap"> Services </cite>
                                         </a>
                                         <ul class="sub-menu">
-                                            <li>
-                                                <a href="service-details">IT Consultation</a>
-                                            </li>
-                                            <li>
-                                                <a href="service-details">Data Security</a>
-                                            </li>
-                                            <li>
-                                                <a href="service-details">Digital Marketing</a>
-                                            </li>
-                                            <li>
-                                                <a href="service-details">Cloud Services</a>
-                                            </li>
+                                            <?php
+                                            try {
+                                                $stmt_services = $pdo->query("SELECT title, slug FROM services ORDER BY title ASC");
+                                                while ($service = $stmt_services->fetch()) {
+                                                    echo '<li><a href="service/' . $service['slug'] . '">' . htmlspecialchars($service['title']) . '</a></li>';
+                                                }
+                                            } catch (Exception $e) {
+                                            }
+                                            ?>
                                         </ul>
                                     </li>
                                     <li>
@@ -170,20 +187,17 @@ $extra_header_class = ($current_page !== 'index' && $current_page !== '') ? ' ot
                 </li>
                 <li><a href="about">About</a></li>
                 <li class="has-clid relative">
-                    <a href="services">Services</a>
+                    <a href="services.php">Services</a>
                     <ul class="sub-menu">
-                        <li>
-                            <a href="service-details">IT Consultation</a>
-                        </li>
-                        <li>
-                            <a href="service-details">Data Security</a>
-                        </li>
-                        <li>
-                            <a href="service-details">Digital Marketing</a>
-                        </li>
-                        <li>
-                            <a href="service-details">Cloud Services</a>
-                        </li>
+                        <?php
+                        try {
+                            $stmt_services = $pdo->query("SELECT title, slug FROM services ORDER BY title ASC");
+                            while ($service = $stmt_services->fetch()) {
+                                echo '<li><a href="service/' . $service['slug'] . '">' . htmlspecialchars($service['title']) . '</a></li>';
+                            }
+                        } catch (Exception $e) {
+                        }
+                        ?>
                     </ul>
                 </li>
                 <li>

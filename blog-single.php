@@ -1,208 +1,140 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+include 'includes/db.php';
+include 'includes/header.php'; 
 
-<!--======== Blog Single Page Banner Start ========-->
+if (isset($_GET['slug'])) {
+    $slug = $_GET['slug'];
+    // Fetch post with category
+    $stmt = $pdo->prepare("SELECT b.*, c.name as category_name, c.id as category_id 
+                           FROM blog_posts b 
+                           LEFT JOIN blog_categories c ON b.category_id = c.id 
+                           WHERE b.slug = ? AND b.status = 'published'");
+    $stmt->execute([$slug]);
+    $post = $stmt->fetch();
+
+    if (!$post) {
+        // Redirect if not found
+        echo "<script>window.location.href='blog.php';</script>";
+        exit();
+    }
+    
+    // Increment views
+    $stmt_view = $pdo->prepare("UPDATE blog_posts SET views = views + 1 WHERE id = ?");
+    $stmt_view->execute([$post['id']]);
+    
+} else {
+    echo "<script>window.location.href='blog.php';</script>";
+    exit();
+}
+
+$img = !empty($post['thumbnail']) ? "assets/images/blog/" . $post['thumbnail'] : "assets/images/no-image.jpg";
+$date = date('F d, Y', strtotime($post['created_at']));
+$author = !empty($post['author']) ? $post['author'] : 'Admin';
+$category = !empty($post['category_name']) ? $post['category_name'] : 'Uncategorized';
+?>
+
+<!--======== Page Banner Start ========-->
 <section class="rs-page-banner">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="rs-page-banner__content">
-                    <h1 class="title">Blog Single</h1>
+                    <h1 class="title"><?php echo htmlspecialchars($post['title']); ?></h1>
                     <ul>
-                        <li><i class="ri-home-wifi-line"></i> <a href="#">Home</a></li>
-                        <li><i class="ri-arrow-right-fill"></i> Blog Single</li>
+                        <li><i class="ri-home-wifi-line"></i> <a href="index.php">Home</a></li>
+                        <li><i class="ri-arrow-right-fill"></i> <a href="blog.php">Blog</a></li>
+                        <li><i class="ri-arrow-right-fill"></i> Details</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!--======== Blog Single Page Banner Ends ========-->
+<!--======== Page Banner Ends ========-->
 
-<!--======== Blog Single Page Start ========-->
-<section class="rs-blog-single-page pt-80 pb-120">
+<!--======== Blog Details Page Start ========-->
+<section class="rs-blog-standard-page pt-120 pb-120">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div class="rs-blog-single-page__content mt-40">
-                    <div class="rs-thumb pb-45">
-                        <img src="assets/images/blog/column-blog-7.jpg" alt="">
+                <div class="rs-blog-standard-item rs-blog-details-content mt-40">
+                    <div class="rs-thumb">
+                        <img src="<?php echo $img; ?>" alt="<?php echo htmlspecialchars($post['title']); ?>">
                     </div>
-                    <p>Podcasting operational change management inside of workflows to establish a framework. Taking
-                        seamless key performance indicators offline to maximise the long tail. Keeping your eye on the
-                        ball while performing a deep dive on the start-up mentality.</p>
-                    <p class="mt-20">Podcasting operational change management inside of workflows to establish a
-                        framework. Taking seamless key performance indicators offline to maximise the long tail.</p>
-                    <h2 class="title mt-45 pb-20">Our personal approach</h2>
-                    <p>Podcasting operational change management inside of workflows to establish a framework. Taking
-                        seamless key performance indicators offline to maximise the long tail.</p>
-                    <div class="row mb-20">
-                        <div class="col-lg-6">
-                            <div class="rs-thumb mt-20">
-                                <img style="border-radius: 10px;" src="assets/images/blog/blog-single-thumb-1.jpg"
-                                    alt="">
-                            </div>
+                    <div class="rs-meta-box">
+                        <ul>
+                            <li><i class="ri-user-3-line"></i> <?php echo htmlspecialchars($author); ?></li>
+                            <li><i class="ri-calendar-line"></i> <?php echo $date; ?></li>
+                            <li><a href="blog.php?category=<?php echo $post['category_id']; ?>"><i class="ri-price-tag-3-line"></i> <?php echo htmlspecialchars($category); ?></a></li>
+                            <li><i class="ri-eye-line"></i> <?php echo $post['views'] ?? 0; ?> Views</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rs-content">
+                        <h2 class="title"><?php echo htmlspecialchars($post['title']); ?></h2>
+                        
+                        <?php if (!empty($post['video_url'])): ?>
+                        <div class="rs-video-wrap mb-40" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 10px;">
+                            <?php
+                            $video_url = $post['video_url'];
+                            $embed_url = '';
+                            if (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
+                                preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $video_url, $matches);
+                                if (isset($matches[1])) {
+                                    $embed_url = "https://www.youtube.com/embed/" . $matches[1];
+                                }
+                            } elseif (strpos($video_url, 'vimeo.com') !== false) {
+                                preg_match('/vimeo\.com\/(\d+)/', $video_url, $matches);
+                                if (isset($matches[1])) {
+                                    $embed_url = "https://player.vimeo.com/video/" . $matches[1];
+                                }
+                            }
+                            
+                            if ($embed_url) {
+                                echo '<iframe src="' . $embed_url . '" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" allowfullscreen></iframe>';
+                            }
+                            ?>
                         </div>
-                        <div class="col-lg-6 mt-20">
-                            <div class="rs-thumb">
-                                <img style="border-radius: 10px;" src="assets/images/blog/blog-single-thumb-2.jpg"
-                                    alt="">
-                            </div>
+                        <?php endif; ?>
+
+                        <div class="blog-desc">
+                            <?php echo $post['content']; ?>
                         </div>
-                    </div>
-                    <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test.
-                        Override the digital divide with additional clickthroughs from. Nanotechnology immersion along
-                        the information.</p>
-                    <div class="rs-quote-text">
-                        <p>“Proactively envisioned multimedia based expertise and cross-media growth strategies.
-                            Seamlessly visualize quality intellectual capital without superior.”</p>
-                        <span><span>- Jhon Henry</span> , CEO at Notero JSC </span>
-                    </div>
-                    <div class="rs-play">
-                        <img src="assets/images/blog/blog-single-play.jpg" alt="">
-                        <div class="play-icon">
-                            <a class="rs-popup-videos" href="https://www.youtube.com/watch?v=5CLmRIHR5Zw"><i
-                                    class="fa fa-play"></i></a>
+
+                        <?php if (!empty($post['attachment'])): ?>
+                        <div class="rs-attachment mt-30 p-3" style="background: #f9f9f9; border-left: 4px solid #007bff; border-radius: 4px;">
+                            <h5 class="mb-2"><i class="ri-file-download-line"></i> Download Attachment</h5>
+                            <a href="assets/files/blog/<?php echo $post['attachment']; ?>" class="btn btn-primary btn-sm" download>
+                                Download File <i class="ri-download-line"></i>
+                            </a>
                         </div>
-                    </div>
-                    <h3 class="title mt-30 mb-20">Provide exclusive solutions</h3>
-                    <p>Podcasting operational change management inside of workflows to establish a framework, Taking
-                        seamless key performance indicators offline.</p>
-                    <ul>
-                        <li><i class="ri-share-forward-fill"></i> Everything in your industry that happens text with
-                            their software passage</li>
-                        <li><i class="ri-share-forward-fill"></i> Distribution patterns may not be as critical the text
-                            with their software</li>
-                        <li><i class="ri-share-forward-fill"></i> Analysis is part of good management history of lorem
-                            ipsum the text with their</li>
-                    </ul>
-                    <div class="rs-form">
-                        <h3 class="title">Leave a Reply</h3>
-                        <p>Your email address will not be published. Required fields are marked *</p>
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="input-box">
-                                        <input type="text" placeholder="Name*">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="input-box">
-                                        <input type="email" placeholder="Email*">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="input-box">
-                                        <textarea name="#" id="#" placeholder="Comment*"></textarea>
-                                        <button class="main-btn" type="submit">Post Comment</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        <?php endif; ?>
+                        
+                        <?php if (!empty($post['tags'])): ?>
+                        <div class="rs-tags mt-30">
+                            <h4 class="title" style="font-size: 18px; display: inline-block; margin-right: 10px;">Tags:</h4>
+                            <ul style="display: inline-block; padding: 0;">
+                                <?php 
+                                $tags = explode(',', $post['tags']);
+                                foreach ($tags as $tag) {
+                                    $tag = trim($tag);
+                                    if(!empty($tag)) {
+                                        echo '<li style="display: inline-block; margin-right: 5px;"><a href="#" class="badge bg-primary text-white" style="padding: 5px 10px; font-weight: normal;">' . htmlspecialchars($tag) . '</a></li>';
+                                    }
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="rs-blog-standard-page__sidebar mt-40">
-                    <div class="rs-blog-search rs-blog-common">
-                        <form action="#">
-                            <div class="rs-search">
-                                <input type="text" placeholder="Searching...">
-                                <button class="main-btn" type="submit"><i class="ri-search-line"></i></button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="rs-blog-category rs-blog-common mt-40">
-                        <h4 class="rs-sidebar-title">Categories</h4>
-                        <ul>
-                            <li><a href="blog-single">Application <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Cyber <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Design <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Digital <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Software <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Technology <i class="ri-arrow-right-fill"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="rs-blog-sidebar-post rs-blog-common mt-40">
-                        <h4 class="rs-sidebar-title">Recent Posts</h4>
-                        <div class="rs-blog-sidebar-item mb-25">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-1.jpg" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single">10 reliable sources to learn about it
-                                        solution</a></h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                        <div class="rs-blog-sidebar-item mb-25">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-2.png" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single"> How do you become a graphic designer? </a>
-                                </h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                        <div class="rs-blog-sidebar-item mb-25">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-3.jpg" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single">Simple guidance for you in web
-                                        development</a></h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                        <div class="rs-blog-sidebar-item mb-25">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-4.jpg" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single">Techyrushi App Development Complete Guide </a>
-                                </h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                        <div class="rs-blog-sidebar-item">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-5.jpg" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single"> Tips to help you build your social media
-                                    </a></h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rs-blog-tags rs-blog-common mt-40">
-                        <h4 class="rs-sidebar-title">Tags</h4>
-                        <ul>
-                            <li><a href="#">App</a></li>
-                            <li><a href="#">Consulting</a></li>
-                            <li><a href="#">Cyber</a></li>
-                            <li><a href="#">Design</a></li>
-                            <li><a href="#">Development</a></li>
-                            <li><a href="#">Digital</a></li>
-                            <li><a href="#">Software</a></li>
-                            <li><a href="#">Technology</a></li>
-                        </ul>
-                    </div>
-                    <div class="rs-blog-social rs-blog-common mt-40">
-                        <h4 class="rs-sidebar-title">Tags</h4>
-                        <ul>
-                            <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
-                            <li><a href="#"><i class="ri-twitter-x-fill"></i> </a></li>
-                            <li><a href="#"><i class="ri-pinterest-line"></i></a></li>
-                            <li><a href="#"><i class="ri-instagram-line"></i></a></li>
-                            <li><a href="#"><i class="ri-youtube-fill"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
+                <?php include 'includes/frontend_sidebar.php'; ?>
             </div>
         </div>
     </div>
 </section>
-<!--======== Blog Single Page Ends ========-->
+<!--======== Blog Details Page Ends ========-->
 
 <?php include 'includes/footer.php'; ?>

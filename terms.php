@@ -1,4 +1,7 @@
-<?php include 'includes/header.php'; ?>
+<?php
+include 'includes/db.php';
+include 'includes/header.php';
+?>
 
 <!--======== Page Banner Start ========-->
 <section class="rs-page-banner">
@@ -23,10 +26,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="rs-content-box">
-                    <h3>Terms and Conditions</h3>
-                    <p>Welcome to Techyrushi!</p>
-                    <p>These terms and conditions outline the rules and regulations for the use of Techyrushi's Website.</p>
+                <div class="rs-common-text">
+                    <h3>Terms & Conditions</h3>
+                    <p>Welcome to Techyrushi! These terms and conditions outline the rules and regulations for the use of Techyrushi's Website.</p>
                     
                     <h4>Cookies</h4>
                     <p>We employ the use of cookies. By accessing Techyrushi, you agreed to use cookies in agreement with the Techyrushi's Privacy Policy.</p>

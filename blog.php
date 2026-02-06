@@ -1,4 +1,61 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+// Include DB first to handle logic before output if needed, 
+// but we need header for structure.
+// Use include_once to prevent redeclaration if header also includes it.
+include_once 'includes/db.php';
+
+// Initialize variables to prevent undefined variable errors
+$where = "WHERE status='published'";
+$params = [];
+$limit = 5;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+$total_posts = 0;
+$total_pages = 0;
+$posts = [];
+$error_msg = "";
+
+try {
+    // Filter Logic
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $where .= " AND title LIKE ?";
+        $params[] = "%" . $_GET['search'] . "%";
+    }
+
+    if (isset($_GET['category']) && !empty($_GET['category'])) {
+        $where .= " AND category_id = ?";
+        $params[] = $_GET['category'];
+    }
+
+    // Count Total
+    $stmt_count = $pdo->prepare("SELECT COUNT(*) FROM blog_posts $where");
+    $stmt_count->execute($params);
+    $total_posts = $stmt_count->fetchColumn();
+    $total_pages = ceil($total_posts / $limit);
+
+    // Fetch Posts
+    $sql = "SELECT b.*, c.name as category_name 
+            FROM blog_posts b 
+            LEFT JOIN blog_categories c ON b.category_id = c.id 
+            $where 
+            ORDER BY b.created_at DESC 
+            LIMIT $limit OFFSET $offset";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    $posts = $stmt->fetchAll(); // Fetch all now to avoid issues later
+
+} catch (Exception $e) {
+    $error_msg = "Error loading posts: " . $e->getMessage();
+}
+
+// AJAX Request Handler
+if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+    include 'includes/blog_posts_loop.php';
+    exit;
+}
+
+include 'includes/header.php'; 
+?>
 
 <!--======== Blog Standard Page Banner Start ========-->
 <section class="rs-page-banner">
@@ -8,7 +65,7 @@
                 <div class="rs-page-banner__content">
                     <h1 class="title">Blog Standard</h1>
                     <ul>
-                        <li><i class="ri-home-wifi-line"></i> <a href="#">Home</a></li>
+                        <li><i class="ri-home-wifi-line"></i> <a href="index.php">Home</a></li>
                         <li><i class="ri-arrow-right-fill"></i> Blog Standard</li>
                     </ul>
                 </div>
@@ -24,193 +81,72 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="rs-blog-standard-page__box mt-40">
-                    <div class="rs-blog-standard-item mb-50">
-                        <div class="rs-thumb">
-                            <a href="blog-single">
-                                <img src="assets/images/blog/standaed-thumb-1.jpg" alt="">
-                            </a>
-                            <div class="rs-meta-box">
-                                <ul>
-                                    <li><i class="ri-user-3-line"></i> Techyrushi</li>
-                                    <li><i class="ri-calendar-line"></i> March 17, 2023</li>
-                                    <li><a href="#"><i class="ri-price-tag-3-line"></i> Design</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="rs-content">
-                            <h2 class="title"><a href="blog-single">10 reliable sources to learn about it
-                                    solution</a></h2>
-                            <p> Podcasting operational change management inside of workflows to establish a
-                                framework. Taking seamless key performance indicators offline to maximise the long
-                                tail. Keeping your eye on the ball...</p>
-                            <div class="rs-link">
-                                <a class="main-btn-2" href="blog-single">Continue Reading <i
-                                        class="ri-arrow-right-fill"></i></a>
-                            </div>
-                        </div>
+                    <!-- Search Box -->
+                    <!-- <div class="search-box mb-40">
+                        <input type="text" id="blog-search-input" class="form-control" placeholder="Search blogs..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                    </div> -->
+
+                    <?php if (!empty($error_msg)): ?>
+                        <div class="alert alert-danger"><?php echo htmlspecialchars($error_msg); ?></div>
+                    <?php endif; ?>
+
+                    <div id="blog-posts-container">
+                        <?php include 'includes/blog_posts_loop.php'; ?>
                     </div>
-                    <div class="rs-blog-standard-item mb-50">
-                        <div class="rs-thumb">
-                            <a href="blog-single">
-                                <img src="assets/images/blog/standaed-thumb-2.png" alt="">
-                            </a>
-                            <div class="rs-meta-box">
-                                <ul>
-                                    <li><i class="ri-user-3-line"></i> Techyrushi</li>
-                                    <li><i class="ri-calendar-line"></i> March 17, 2023</li>
-                                    <li><a href="#"><i class="ri-price-tag-3-line"></i> Design</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="rs-content">
-                            <h2 class="title"><a href="blog-single">How do you become a graphic designer? </a>
-                            </h2>
-                            <p> Podcasting operational change management inside of workflows to establish a
-                                framework. Taking seamless key performance indicators offline to maximise the long
-                                tail. Keeping your eye on the ball...</p>
-                            <div class="rs-link">
-                                <a class="main-btn-2" href="blog-single">Continue Reading <i
-                                        class="ri-arrow-right-fill"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rs-blog-standard-item">
-                        <div class="rs-thumb">
-                            <a href="blog-single">
-                                <img src="assets/images/blog/standaed-thumb-3.jpg" alt="">
-                            </a>
-                            <div class="rs-meta-box">
-                                <ul>
-                                    <li><i class="ri-user-3-line"></i> Techyrushi</li>
-                                    <li><i class="ri-calendar-line"></i> March 17, 2023</li>
-                                    <li><a href="#"><i class="ri-price-tag-3-line"></i> Design</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="rs-content">
-                            <h2 class="title"><a href="blog-single">Simple guidance for you in web
-                                    development</a></h2>
-                            <p> Podcasting operational change management inside of workflows to establish a
-                                framework. Taking seamless key performance indicators offline to maximise the long
-                                tail. Keeping your eye on the ball...</p>
-                            <div class="rs-link">
-                                <a class="main-btn-2" href="blog-single">Continue Reading <i
-                                        class="ri-arrow-right-fill"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    <!-- Pagination -->
+                    <?php if ($total_pages > 1): ?>
                     <div class="rs-shop-page__breadcrumb">
                         <ul>
-                            <li><a class="active" href="#"><span>1</span></a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#"><i class="ri-arrow-right-fill"></i></a></li>
+                            <?php if ($page > 1): ?>
+                                <li><a href="?page=<?php echo $page - 1; ?>"><i class="ri-arrow-left-fill"></i></a></li>
+                            <?php endif; ?>
+                            
+                            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                                <li><a class="<?php echo ($i == $page) ? 'active' : ''; ?>" href="?page=<?php echo $i; ?>"><span><?php echo $i; ?></span></a></li>
+                            <?php endfor; ?>
+                            
+                            <?php if ($page < $total_pages): ?>
+                                <li><a href="?page=<?php echo $page + 1; ?>"><i class="ri-arrow-right-fill"></i></a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="rs-blog-standard-page__sidebar mt-40">
-                    <div class="rs-blog-search rs-blog-common">
-                        <form action="#">
-                            <div class="rs-search">
-                                <input type="text" placeholder="Searching...">
-                                <button class="main-btn" type="submit"><i class="ri-search-line"></i></button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="rs-blog-category rs-blog-common mt-40">
-                        <h4 class="rs-sidebar-title">Categories</h4>
-                        <ul>
-                            <li><a href="blog-single">Application <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Cyber <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Design <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Digital <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Software <i class="ri-arrow-right-fill"></i></a></li>
-                            <li><a href="blog-single">Technology <i class="ri-arrow-right-fill"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="rs-blog-sidebar-post rs-blog-common mt-40">
-                        <h4 class="rs-sidebar-title">Recent Posts</h4>
-                        <div class="rs-blog-sidebar-item mb-25">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-1.jpg" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single">10 reliable sources to learn about it
-                                        solution</a></h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                        <div class="rs-blog-sidebar-item mb-25">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-2.png" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single"> How do you become a graphic designer?
-                                    </a></h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                        <div class="rs-blog-sidebar-item mb-25">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-3.jpg" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single">Simple guidance for you in web
-                                        development</a></h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                        <div class="rs-blog-sidebar-item mb-25">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-4.jpg" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single">Techyrushi App Development Complete Guide
-                                    </a></h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                        <div class="rs-blog-sidebar-item">
-                            <div class="rs-thumb">
-                                <a href="blog-single"><img src="assets/images/blog/side-blog-5.jpg" alt=""></a>
-                            </div>
-                            <div class="rs-content">
-                                <h5 class="title"><a href="blog-single"> Tips to help you build your social
-                                        media </a></h5>
-                                <span><i class="ri-calendar-line"></i> March 21, 2023 </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rs-blog-tags rs-blog-common mt-40">
-                        <h4 class="rs-sidebar-title">Tags</h4>
-                        <ul>
-                            <li><a href="#">App</a></li>
-                            <li><a href="#">Consulting</a></li>
-                            <li><a href="#">Cyber</a></li>
-                            <li><a href="#">Design</a></li>
-                            <li><a href="#">Development</a></li>
-                            <li><a href="#">Digital</a></li>
-                            <li><a href="#">Software</a></li>
-                            <li><a href="#">Technology</a></li>
-                        </ul>
-                    </div>
-                    <div class="rs-blog-social rs-blog-common mt-40">
-                        <h4 class="rs-sidebar-title">Social</h4>
-                        <ul>
-                            <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
-                            <li><a href="#"><i class="ri-twitter-x-fill"></i> </a></li>
-                            <li><a href="#"><i class="ri-pinterest-line"></i></a></li>
-                            <li><a href="#"><i class="ri-instagram-line"></i></a></li>
-                            <li><a href="#"><i class="ri-youtube-fill"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
+                <?php include 'includes/frontend_sidebar.php'; ?>
             </div>
         </div>
     </div>
 </section>
 <!--======== Blog Standard Page Ends ========-->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    var timer;
+    $('#blog-search-input').on('keyup', function() {
+        var query = $(this).val();
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+            $.ajax({
+                url: 'blog.php',
+                type: 'GET',
+                data: {
+                    search: query,
+                    ajax: 1
+                },
+                success: function(response) {
+                    $('#blog-posts-container').html(response);
+                    // Update URL without reload
+                    var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?search=' + encodeURIComponent(query);
+                    window.history.pushState({path: newUrl}, '', newUrl);
+                }
+            });
+        }, 500); // 500ms delay for debounce
+    });
+});
+</script>
 
 <?php include 'includes/footer.php'; ?>

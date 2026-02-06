@@ -1,8 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="en">
-
-
-<!-- Mirrored from demo.rstheme.com/html/Techyrushi/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:48:32 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -78,13 +75,13 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                                                 <path d="M11 17.9381C7.05369 17.446 4 14.0796 4 10C4 5.58172 7.58172 2 12 2C16.4183 2 20 5.58172 20 10C20 14.0796 16.9463 17.446 13 17.9381V20.0116C16.9463 20.1039 20 20.7351 20 21.5C20 22.3284 16.4183 23 12 23C7.58172 23 4 22.3284 4 21.5C4 20.7351 7.05369 20.1039 11 20.0116V17.9381ZM12 16C15.3137 16 18 13.3137 18 10C18 6.68629 15.3137 4 12 4C8.68629 4 6 6.68629 6 10C6 13.3137 8.68629 16 12 16ZM12 12C10.8954 12 10 11.1046 10 10C10 8.89543 10.8954 8 12 8C13.1046 8 14 8.89543 14 10C14 11.1046 13.1046 12 12 12Z" fill="#000"></path>
                                             </svg>
-                                            <span>19 Broklyn Golden Street. New York</span>
+                                            <span>Nashik, Maharashtra</span>
                                         </li>
                                         <li>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14" fill="none">
                                                 <path d="M16 12.3687C15.9987 12.5597 15.9223 12.7425 15.7873 12.8777C15.6523 13.0128 15.4695 13.0894 15.2785 13.0909H2.176C1.98459 13.0907 1.80109 13.0145 1.66581 12.8791C1.53053 12.7437 1.45455 12.5601 1.45455 12.3687V11.6364H14.5455V3.12727L8.72727 8.36364L1.45455 1.81818V0.727273C1.45455 0.534388 1.53117 0.349403 1.66756 0.213013C1.80395 0.0766231 1.98893 0 2.18182 0H15.2727C15.4656 0 15.6506 0.0766231 15.787 0.213013C15.9234 0.349403 16 0.534388 16 0.727273V12.3687ZM3.22473 1.45455L8.72727 6.40727L14.2298 1.45455H3.22473ZM0 8.72727H5.81818V10.1818H0V8.72727ZM0 5.09091H3.63636V6.54545H0V5.09091Z" fill="#1A73E9"></path>
                                             </svg>
-                                            <span>Email: <a href="mailto:info@example.com">info@example.com</a></span>
+                                            <span>Email: <a href="mailto:techyrushi.talks@gmail.com">techyrushi.talks@gmail.com</a></span>
                                         </li>
                                         <li>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -97,10 +94,10 @@
                                 <div class="rs-header-topber-social">
                                     <span>Follow Us :</span>
                                     <ul>
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="ri-twitter-x-fill"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                        <li><a href="https://www.facebook.com/people/Techyrushitalks/61587126144718/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="https://www.instagram.com/techyrushi.talks?igsh=c2J5Njc1NDZ2dzJv" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                                        <li><a href="https://www.linkedin.com/in/chavanrushikesh/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="https://github.com/Techyrushi" target="_blank"><i class="fa fa-github"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -696,5 +693,4 @@
 </body>
 
 
-<!-- Mirrored from demo.rstheme.com/html/Techyrushi/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:48:32 GMT -->
 </html>

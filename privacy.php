@@ -1,4 +1,7 @@
-<?php include 'includes/header.php'; ?>
+<?php
+include 'includes/db.php';
+include 'includes/header.php';
+?>
 
 <!--======== Page Banner Start ========-->
 <section class="rs-page-banner">
@@ -23,18 +26,25 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="rs-content-box">
-                    <h3>Privacy Policy for Techyrushi</h3>
+                <div class="rs-common-text">
+                    <h3>Privacy Policy</h3>
                     <p>At Techyrushi, accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Techyrushi and how we use it.</p>
                     
+                    <h4>Information We Collect</h4>
+                    <p>The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.</p>
+                    
+                    <h4>How We Use Your Information</h4>
+                    <p>We use the information we collect in various ways, including to:</p>
+                    <ul>
+                        <li>Provide, operate, and maintain our website</li>
+                        <li>Improve, personalize, and expand our website</li>
+                        <li>Understand and analyze how you use our website</li>
+                        <li>Develop new products, services, features, and functionality</li>
+                        <li>Communicate with you, either directly or through one of our partners</li>
+                    </ul>
+
                     <h4>Log Files</h4>
-                    <p>Techyrushi follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.</p>
-                    
-                    <h4>Cookies and Web Beacons</h4>
-                    <p>Like any other website, Techyrushi uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.</p>
-                    
-                    <h4>Privacy Policies</h4>
-                    <p>You may consult this list to find the Privacy Policy for each of the advertising partners of Techyrushi.</p>
+                    <p>Techyrushi follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics.</p>
                 </div>
             </div>
         </div>

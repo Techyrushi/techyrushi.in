@@ -46,8 +46,7 @@
                     <div class="rs-footer__about-box">
                         <a href="index"><img src="assets/images/footer_logo.png" alt="" /></a>
                         <p>
-                            Proactively envisioned multimedia based expertise and
-                            cross-media growth strategies seamlessly.
+                            Empowering businesses with cutting-edge IT solutions, cloud strategies, and digital transformation services. We build scalable systems and innovative software tailored for your growth.
                         </p>
                         <div class="rs-btn">
                             <a class="main-btn" href="about">
@@ -64,12 +63,16 @@
                             <h4 class="title">Our Services</h4>
                         </div>
                         <ul>
-                            <li><a href="service-details">IT Solutions</a></li>
-                            <li><a href="service-details">Cyber Security</a></li>
-                            <li><a href="service-details">Cloud Services</a></li>
-                            <li><a href="service-details">Digital Strategy</a></li>
-                            <li><a href="service-details">SEO Optimization</a></li>
-                            <li><a href="service-details">Brand Identity</a></li>
+                            <?php
+                            try {
+                                $stmt_footer_services = $pdo->query("SELECT title, slug FROM services ORDER BY title ASC LIMIT 6");
+                                while ($service = $stmt_footer_services->fetch()) {
+                                    echo '<li><a href="service/' . $service['slug'] . '">' . htmlspecialchars($service['title']) . '</a></li>';
+                                }
+                            } catch (Exception $e) {
+                                echo '<li><a href="services">View All Services</a></li>';
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -82,7 +85,7 @@
                             <li><a href="about">About</a></li>
                             <li><a href="appointment">Appointment</a></li>
                             <li><a href="project">Our Projects</a></li>
-                            <li><a href="pricing">Pricing</a></li>
+                            <!-- <li><a href="pricing">Pricing</a></li> -->
                             <li><a href="services">Services</a></li>
                         </ul>
                     </div>
@@ -93,12 +96,12 @@
                             <h4 class="title">Newsletter</h4>
                         </div>
                         <p>
-                            Register now to get latest updates on promotions & coupons.
+                            Subscribe to our newsletter for the latest updates on technology trends, company news, and exclusive offers.
                         </p>
-                        <form action="#">
+                        <form id="newsletter-form" class="ajax-form" action="submit_newsletter.php" method="POST">
                             <div class="input-box">
-                                <input type="email" placeholder="Your email address" />
-                                <button class="main-btn">
+                                <input type="email" name="email" placeholder="Your email address" required />
+                                <button type="submit" class="main-btn">
                                     Subscribe
                                     <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M6.5 7.8125H0V6.1875H6.5V0.5L13 7L6.5 13.5V7.8125Z" fill="#fff"></path>
@@ -128,16 +131,19 @@
                     <div class="rs-footer__social">
                         <ul>
                             <li>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="https://www.facebook.com/people/Techyrushitalks/61587126144718/" target="_blank"><i class="fa fa-facebook"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="ri-twitter-x-fill"></i></a>
+                                <a href="https://www.instagram.com/techyrushi.talks?igsh=c2J5Njc1NDZ2dzJv" target="_blank"><i class="fa fa-instagram"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="https://github.com/Techyrushi" target="_blank"><i class="fa fa-github"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="https://www.linkedin.com/in/chavanrushikesh/" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="http://wa.me/+918446225859?text=Hello%21+I+am+contacting+you+from+the+Techyrushi+business+website.+I+would+like+to+know+more+about+your+services." target="_blank"><i class="fa fa-whatsapp"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -225,8 +231,8 @@
 <!-- skeletabs JS -->
 <script src="assets/js/skeletabs.js"></script>
 
-<!-- magnific popup JS -->
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!-- magnific popup js -->
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
 
 <!-- GSAP Interactions Start -->
 <script src="assets/js/interactions/gsap.min.js"></script>
@@ -238,7 +244,5 @@
 <!-- Activation JS -->
 <script src="assets/js/main.js"></script>
 </body>
-
-<!-- Mirrored from demo.rstheme.com/html/Techyrushi/index-3 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 13:48:15 GMT -->
 
 </html>

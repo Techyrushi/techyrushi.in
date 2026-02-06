@@ -1,15 +1,62 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+require_once 'includes/db.php';
 
+$project = null;
+$next_project = null;
+$prev_project = null;
+
+try {
+    if (isset($_GET['slug']) && !empty($_GET['slug'])) {
+        $slug = $_GET['slug'];
+        $stmt = $pdo->prepare("SELECT * FROM projects WHERE slug = ?");
+        $stmt->execute([$slug]);
+        $project = $stmt->fetch();
+
+        if (!$project) {
+            header("Location: project.php");
+            exit();
+        }
+        
+        // Set SEO data for header
+        $page_title = $project['title'];
+        $meta_description = substr(strip_tags($project['description']), 0, 160);
+        
+        // Increment views
+        $pdo->prepare("UPDATE projects SET views = views + 1 WHERE id = ?")->execute([$project['id']]);
+        
+    } else {
+        header("Location: project.php");
+        exit();
+    }
+
+    // Fetch Next and Prev projects
+    $stmt_next = $pdo->prepare("SELECT slug FROM projects WHERE id > ? ORDER BY id ASC LIMIT 1");
+    $stmt_next->execute([$project['id']]);
+    $next_project = $stmt_next->fetch();
+
+    $stmt_prev = $pdo->prepare("SELECT slug FROM projects WHERE id < ? ORDER BY id DESC LIMIT 1");
+    $stmt_prev->execute([$project['id']]);
+    $prev_project = $stmt_prev->fetch();
+    
+} catch (Exception $e) {
+    // If error occurs before header, we can just exit or show simple error
+    die("Error: " . $e->getMessage());
+}
+
+include 'includes/header.php'; 
+?>
 <!--======== Project Details Page Banner Start ========-->
 <section class="rs-page-banner">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="rs-page-banner__content">
-                    <h1 class="title">Project Details</h1>
+                    <h1 class="title"><?php echo htmlspecialchars($project['title']); ?></h1>
                     <ul>
-                        <li><i class="ri-home-wifi-line"></i> <a href="#">Home</a></li>
-                        <li><i class="ri-arrow-right-fill"></i>Project Details</li>
+                        <li><i class="ri-home-wifi-line"></i> <a href="index">Home</a></li>
+                        <li><i class="ri-arrow-right-fill"></i> <a href="project">Projects</a></li>
+                        <li><i class="ri-arrow-right-fill"></i> <?php echo htmlspecialchars($project['title']); ?></li>
+                        <li><i class="ri-eye-line" style="margin-left: 15px;"></i> <?php echo $project['views'] ?? 0; ?> Views</li>
                     </ul>
                 </div>
             </div>
@@ -25,70 +72,42 @@
             <div class="col-lg-8">
                 <div class="rs-project-details__content mt-30 ">
                     <div class="rs-thumb">
-                        <img src="assets/images/project/project-details-thumb.jpg" alt="">
+                        <?php if (!empty($project['image'])): ?>
+                            <img src="assets/images/project/<?php echo htmlspecialchars($project['image']); ?>" alt="<?php echo htmlspecialchars($project['title']); ?>">
+                        <?php else: ?>
+                            <img src="assets/images/project/project-details-thumb.jpg" alt="">
+                        <?php endif; ?>
                     </div>
                     <div class="rs-project-content">
-                        <h2 class="title">Intro of the project</h2>
-                        <p>Completely synergize resource taxing relationships via premier niche markets. Professionally
-                            cultivate one-to-one customer service with robust ideas. Dynamically</p>
-                        <p>service for state of the art customer service. Objectively innovate empowered manufactured
-                            products whereas parallel platforms.</p>
-                        <h5>Challenge and solution</h5>
-                        <p>Podcasting operational change management inside of workflows to establish a framework. Taking
-                            seamless key performance indicators offline to maximise the long tail. Keeping your eye on
-                            the ball while performing a deep dive on the start-up mentality to derive convergence on
-                            cross-platform integration. Taking seamless key performance indicators offline to maximise
-                            the long tail.</p>
-                        <div class="rs-list-box">
-                            <ul>
-                                <li><i class="ri-share-forward-fill"></i> Document the short and long term goals.</li>
-                                <li><i class="ri-share-forward-fill"></i> Automated development pipelines.</li>
-                                <li><i class="ri-share-forward-fill"></i> Objectively innovate empowered.</li>
-                                <li><i class="ri-share-forward-fill"></i> Predominate extensible testing.</li>
-                            </ul>
-                            <ul>
-                                <li><i class="ri-share-forward-fill"></i> Document the short and long term goals.</li>
-                                <li><i class="ri-share-forward-fill"></i> Automated development pipelines.</li>
-                                <li><i class="ri-share-forward-fill"></i> Objectively innovate empowered.</li>
-                                <li><i class="ri-share-forward-fill"></i> Predominate extensible testing.</li>
-                            </ul>
+                        <h2 class="title"><?php echo htmlspecialchars($project['title']); ?></h2>
+                        
+                        <div class="project-description">
+                            <?php echo $project['description']; ?>
                         </div>
-                        <p>Keeping your eye on the ball while performing a deep dive on the start-up mentality to
-                            convergence on cross-platform integration. Derive convergence on cross-platform integration
-                            taking seamless key performance indicators offline to maximise the long tail.</p>
-                        <div class="rs-project-sourc">
-                            <div class="rs-project-play">
-                                <img src="assets/images/project/dingle-dual-image-first.jpg" alt="">
-                                <div class="play-icon">
-                                    <a class="rs-popup-videos" href="https://www.youtube.com/watch?v=5CLmRIHR5Zw"><i
-                                            class="fa fa-play"></i></a>
+
+                        <?php
+                        // Fetch Gallery Images
+                        $stmt_gal = $pdo->prepare("SELECT * FROM project_images WHERE project_id = ? ORDER BY id ASC");
+                        $stmt_gal->execute([$project['id']]);
+                        $gallery_images = $stmt_gal->fetchAll();
+                        
+                        if (count($gallery_images) > 0): 
+                        ?>
+                        <div class="project-gallery mt-50">
+                            <h3 class="title mb-30">Project Gallery</h3>
+                            <div class="row">
+                                <?php foreach ($gallery_images as $img): ?>
+                                <div class="col-md-6 mb-30">
+                                    <div class="gallery-item">
+                                        <img src="assets/images/project/gallery/<?php echo $img['image_path']; ?>" alt="Project Image" class="img-fluid w-100" style="border-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="rs-project-sourc-box">
-                                <div class="rs-thumb">
-                                    <img src="assets/images/project/dingle-dual-image-last.jpg" alt="">
-                                </div>
-                                <div class="rs-project-list">
-                                    <h4 class="title">Sourcing the best cases of the year.</h4>
-                                    <ul>
-                                        <li><i class="ri-checkbox-circle-line"></i> Provided Professional and Certified
-                                        </li>
-                                        <li><i class="ri-checkbox-circle-line"></i> Trusted Legal Represent</li>
-                                        <li><i class="ri-checkbox-circle-line"></i> Full Range Of Quality Services</li>
-                                    </ul>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
-                        <h5>Project overview</h5>
-                        <p>Keeping your eye on the ball while performing a deep dive on the start-up mentality to
-                            convergence on cross-platform integration. Derive convergence on cross-platform integration
-                            taking seamless key.</p>
-                        <div class="project-author-content">
-                            <p>“Proactively envisioned multimedia based expertise and cross-media growth strategies.
-                                Seamlessly visualize quality intellectual capital without superior.”</p>
-                            <span><span>- Jhon Henry</span> , CEO at Notero JSC -</span>
-                        </div>
-                        <div class="rs-project-bar">
+                        <?php endif; ?>
+
+                        <div class="rs-project-bar mt-50">
                             <div class="rs-social">
                                 <ul>
                                     <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
@@ -99,10 +118,13 @@
                             </div>
                             <div class="rs-project-switch-btn">
                                 <ul>
-                                    <li><a class="main-btn" href="#"><i class="ri-arrow-left-fill"></i> Prev Post</a>
-                                    </li>
-                                    <li><a class="main-btn" href="#">Next Post <i class="ri-arrow-right-fill"></i></a>
-                                    </li>
+                                    <?php if ($prev_project): ?>
+                                    <li><a class="main-btn" href="project/<?php echo $prev_project['slug']; ?>"><i class="ri-arrow-left-fill"></i> Prev Post</a></li>
+                                    <?php endif; ?>
+                                    
+                                    <?php if ($next_project): ?>
+                                    <li><a class="main-btn" href="project/<?php echo $next_project['slug']; ?>">Next Post <i class="ri-arrow-right-fill"></i></a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </div>
@@ -120,7 +142,7 @@
                                 </div>
                                 <div class="rs-content">
                                     <h5>Client</h5>
-                                    <span>Microsoft Holing Ltd</span>
+                                    <span><?php echo htmlspecialchars($project['client_name'] ?? 'N/A'); ?></span>
                                 </div>
                             </div>
                             <div class="sidebar-category-item">
@@ -129,7 +151,7 @@
                                 </div>
                                 <div class="rs-content">
                                     <h5>Country</h5>
-                                    <span>USA</span>
+                                    <span><?php echo htmlspecialchars($project['country'] ?? 'N/A'); ?></span>
                                 </div>
                             </div>
                             <div class="sidebar-category-item">
@@ -138,7 +160,7 @@
                                 </div>
                                 <div class="rs-content">
                                     <h5>Core technologies</h5>
-                                    <span>iOS/ PHP/ Laravel/ Git</span>
+                                    <span><?php echo htmlspecialchars($project['core_technologies'] ?? 'N/A'); ?></span>
                                 </div>
                             </div>
                             <div class="sidebar-category-item">
@@ -147,7 +169,7 @@
                                 </div>
                                 <div class="rs-content">
                                     <h5>Industry</h5>
-                                    <span>IT Solution, Design</span>
+                                    <span><?php echo htmlspecialchars($project['industry'] ?? 'N/A'); ?></span>
                                 </div>
                             </div>
                             <div class="sidebar-category-item">
@@ -156,7 +178,7 @@
                                 </div>
                                 <div class="rs-content">
                                     <h5>Date</h5>
-                                    <span>February 22th, 2022</span>
+                                    <span><?php echo date('F jS, Y', strtotime($project['project_date'])); ?></span>
                                 </div>
                             </div>
                             <div class="sidebar-category-item">
@@ -165,9 +187,20 @@
                                 </div>
                                 <div class="rs-content">
                                     <h5>Cost</h5>
-                                    <span>USD 1,50,499</span>
+                                    <span><?php echo htmlspecialchars($project['cost'] ?? 'N/A'); ?></span>
                                 </div>
                             </div>
+                            
+                            <?php if (!empty($project['brochure'])): ?>
+                            <div class="sidebar-category-item" style="border-bottom: none;">
+                                <div class="rs-content" style="width: 100%; padding-left: 0;">
+                                    <h5 class="mb-3">Project Brochure</h5>
+                                    <a href="assets/files/project/<?php echo $project['brochure']; ?>" class="btn btn-primary w-100" download style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                        <i class="ri-file-download-line"></i> Download PDF
+                                    </a>
+                                </div>
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="sidebar-category-contact mt-40">

@@ -1,4 +1,5 @@
 <?php include 'includes/header.php'; ?>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <!--======== Banner Start ========-->
 <section class="rs-banner">
   <div class="rs-banner-slider">
@@ -22,9 +23,7 @@
                   Digital Future
                 </h1>
                 <p data-animation="fadeInLeft" data-delay="0.9s">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Vero soluta modi, libero, ratione quidem quibusdam ullam
-                  illo obcaecati
+                  Igniting digital transformation with future-ready technology. We turn ambitious concepts into powerful realities through expert development and strategic consulting.
                 </p>
                 <a data-animation="fadeInUp" data-delay="1.2s" class="main-btn" href="about">Get Started <i
                     class="ri-arrow-right-fill"></i></a>
@@ -82,9 +81,7 @@
                   Innovation
                 </h1>
                 <p data-animation="fadeInLeft" data-delay="0.9s">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Vero soluta modi, libero, ratione quidem quibusdam ullam
-                  illo obcaecati
+                  Pioneering the next wave of digital excellence. Our bespoke IT strategies deliver robust, scalable solutions designed to propel your business forward.
                 </p>
                 <a data-animation="fadeInUp" data-delay="1.2s" class="main-btn" href="about">Get Started <i
                     class="ri-arrow-right-fill"></i></a>
@@ -130,54 +127,28 @@
 <div class="single-service pt-90">
   <div class="container">
     <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="single-service__item">
-          <div class="single-service__icon">
-            <img src="assets/images/service/service-icon.png" alt="" />
-          </div>
-          <a href="#">IT Consultation</a>
-          <p>
-            Podcasting Optonal Change Management Inside Of Workflows To
-            Establish A Framework.
-          </p>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="single-service__item">
-          <div class="single-service__icon">
-            <img src="assets/images/service/service-icon.png" alt="" />
-          </div>
-          <a href="#">Data Security</a>
-          <p>
-            Leverage Agile Frameworks To Provide A Robust Synopsis For High
-            Level Overviews.
-          </p>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="single-service__item">
-          <div class="single-service__icon">
-            <img src="assets/images/service/service-icon.png" alt="" />
-          </div>
-          <a href="#">Digital Marketing</a>
-          <p>
-            Capitalize On Low Hanging Fruit Identify A Ballpark Added Value
-            Activity To Beta Test.
-          </p>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="single-service__item">
-          <div class="single-service__icon">
-            <img src="assets/images/service/service-icon.png" alt="" />
-          </div>
-          <a href="#">Cloud Services</a>
-          <p>
-            Bring To The Table Win-win Survival Strategies To Ensure
-            Proactive Domination.
-          </p>
-        </div>
-      </div>
+      <?php
+      // Fetch top 4 services
+      $stmt_services = $pdo->query("SELECT * FROM services ORDER BY display_order ASC LIMIT 4");
+      if ($stmt_services->rowCount() > 0) {
+          while ($service = $stmt_services->fetch()) {
+              $service_icon = !empty($service['icon']) ? $service['icon'] : "flaticon-web";
+              ?>
+              <div class="col-lg-3 col-md-6 col-sm-6 mb-30">
+                <div class="single-service__item h-100">
+                  <div class="single-service__icon">
+                     <i class="<?php echo htmlspecialchars($service_icon); ?>" style="font-size: 50px; color: #ff5e14;"></i>
+                  </div>
+                  <a href="service/<?php echo htmlspecialchars($service['slug']); ?>"><?php echo htmlspecialchars($service['title']); ?></a>
+                  <p>
+                    <?php echo htmlspecialchars(substr(strip_tags($service['short_description']), 0, 80)) . '...'; ?>
+                  </p>
+                </div>
+              </div>
+              <?php
+          }
+      }
+      ?>
     </div>
   </div>
 </div>
@@ -194,10 +165,8 @@
         <div class="rs-about__thumb-box">
           <img src="assets/images/about/about-image.png" alt="" />
           <div class="rs-about__play-box">
-            <span>Intro</span>
-            <div class="play-icon">
-              <a class="rs-popup-videos" href="https://www.youtube.com/watch?v=5CLmRIHR5Zw"><i
-                  class="fa fa-play"></i></a>
+            <div>
+              <img src="assets/images/techyrushi.png" alt="" />
             </div>
           </div>
           <div class="rs-about__countdown-box">
@@ -205,7 +174,7 @@
               <img src="assets/images/about/count-down-experience-icon.svg" alt="" />
             </div>
             <div class="coundown-text">
-              <span><span class="rs-count">25</span>+</span>
+              <span><span class="rs-count">5</span>+</span>
               <h4 class="title">Years Experience</h4>
             </div>
           </div>
@@ -219,79 +188,27 @@
             <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon" />
           </div>
           <h2 class="title split-in-fade">
-            We provide perfect it <span>solutions & technology</span> for
-            any startups.
+            Your Catalyst for Digital Evolution and Sustainable Growth.
           </h2>
           <p>
-            Bring to the table win-win survival strategies to ensure
-            proactive domination. At the end of the day going forward, a new
-            normal that has evolved from operational X is on the runway.
+            We craft holistic IT ecosystems that accelerate business potential. From bespoke software engineering to strategic digital overhauls, we stand as your dedicated ally in the technological landscape.
           </p>
           <ul>
             <li>
               <div class="icon">
-                <svg height="60" width="60" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60"
-                  style="enable-background: new 0 0 60 60" xml:space="preserve">
-                  <style type="text/css">
-                    .st0 {
-                      opacity: 0.1;
-                      fill: #0c43fe;
-                      enable-background: new;
-                    }
-
-                    .st1 {
-                      fill: url(#SVGID_1_);
-                    }
-                  </style>
-                  <path class="st0"
-                    d="M6,0h48c3.3,0,6,2.7,6,6v48c0,3.3-2.7,6-6,6H6c-3.3,0-6-2.7-6-6V6C0,2.7,2.7,0,6,0z" />
-                  <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="18" y1="29.6667" x2="42"
-                    y2="29.6667">
-                    <stop offset="0" style="stop-color: #4b63fc" />
-                    <stop offset="1" style="stop-color: #b32af3" />
-                  </linearGradient>
-                  <path class="st1"
-                    d="M30,15l11,2.4c0.6,0.1,1,0.7,1,1.3v13.3c0,2.7-1.3,5.2-3.6,6.7L30,44.3l-8.4-5.6c-2.2-1.5-3.6-4-3.6-6.7V18.7
-                                    c0-0.6,0.4-1.2,1-1.3L30,15z M35.9,24.6l-6.6,6.6l-3.8-3.8l-1.9,1.9l5.7,5.7l8.5-8.5L35.9,24.6z" />
-                </svg>
+                <i class="ri-wifi-line" style="font-size: 40px; color: #ff5e14;"></i>
               </div>
-              <span>Internal Networking</span>
+              <span>Seamless Connectivity</span>
             </li>
             <li>
               <div class="icon">
-                <svg height="60" width="60" version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60"
-                  style="enable-background: new 0 0 60 60" xml:space="preserve">
-                  <style type="text/css">
-                    .st0 {
-                      opacity: 0.1;
-                      fill: #0c43fe;
-                      enable-background: new;
-                    }
-
-                    .st1 {
-                      fill: url(#SVGID_2_);
-                    }
-                  </style>
-                  <path class="st0"
-                    d="M6,0h48c3.3,0,6,2.7,6,6v48c0,3.3-2.7,6-6,6H6c-3.3,0-6-2.7-6-6V6C0,2.7,2.7,0,6,0z" />
-                  <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="18" y1="29.6667" x2="42"
-                    y2="29.6667">
-                    <stop offset="0" style="stop-color: #4b63fc" />
-                    <stop offset="1" style="stop-color: #b32af3" />
-                  </linearGradient>
-                  <path class="st1"
-                    d="M30,15l11,2.4c0.6,0.1,1,0.7,1,1.3v13.3c0,2.7-1.3,5.2-3.6,6.7L30,44.3l-8.4-5.6c-2.2-1.5-3.6-4-3.6-6.7V18.7
-                                    c0-0.6,0.4-1.2,1-1.3L30,15z M35.9,24.6l-6.6,6.6l-3.8-3.8l-1.9,1.9l5.7,5.7l8.5-8.5L35.9,24.6z" />
-                </svg>
+                <i class="ri-settings-5-line" style="font-size: 40px; color: #ff5e14;"></i>
               </div>
-              <span>Tech Services</span>
+              <span>Advanced Solutions</span>
             </li>
           </ul>
           <p>
-            Rring to the table win-win survival strategies to ensure
-            proactive domination. At the end of the day going forward.
+            Driven by a passion for excellence, we engineer high-caliber solutions that not only align with your unique objectives but also redefine the boundaries of what's possible.
           </p>
           <a class="main-btn" href="about">
             Discover More <i class="ri-arrow-right-fill"></i></a>
@@ -315,9 +232,7 @@
             <img src="assets/images/heart-pulse-rate-white.svg" alt="icon" />
           </div>
           <h2 class="title split-in-fade">
-            We provide advanced
-            solutions to growing your online
-            business.
+            Elevating your digital presence with cutting-edge innovations.
           </h2>
         </div>
       </div>
@@ -330,52 +245,52 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-        <div class="rs-featured__item">
+        <div class="rs-featured__item h-100">
           <div class="rs-featured__icon">
             <img width="40" src="assets/images/featured/mobile.png" alt="" />
             <h4 class="title">
-              App <br />
-              Development
+              Digital <br />
+              Marketing
             </h4>
           </div>
           <div class="rs-featured__list-box">
             <ul>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/android.png" alt="" />
+                  <i class="ri-search-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Android App</a>
+                <a href="services">SEO Optimization</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-apple.png" alt="" />
+                  <i class="ri-facebook-circle-fill" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">iOS App</a>
+                <a href="services">Social Media</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-flutter.png" alt="" />
+                  <i class="ri-advertisement-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Flutter</a>
+                <a href="services">PPC Advertising</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-react.png" alt="" />
+                  <i class="ri-quill-pen-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">React Native</a>
+                <a href="services">Content Strategy</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-kotlin.png" alt="" />
+                  <i class="ri-mail-send-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Kotlin</a>
+                <a href="services">Email Marketing</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="rs-featured__item">
+        <div class="rs-featured__item h-100">
           <div class="rs-featured__icon">
             <img width="70" src="assets/images/featured/desktop.png" alt="" />
             <h4 class="title">
@@ -387,78 +302,78 @@
             <ul>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-php-new.png" alt="" />
+                  <i class="ri-rocket-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">PHP</a>
+                <a href="services">Startup & SaaS Platforms</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-wordpress.png" alt="" />
+                  <i class="ri-shopping-cart-2-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Wordpress</a>
+                <a href="services">E-Commerce Development</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-drupal.png" alt="" />
+                  <i class="ri-building-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Drupal</a>
+                <a href="services">Enterprise & Business Systems</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-cakephp.png" alt="" />
+                  <i class="ri-government-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">CakePHP</a>
+                <a href="services">Government & Institutional Portals</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-laravel.png" alt="" />
+                  <i class="ri-code-s-slash-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Laravel</a>
+                <a href="services">Custom Web Applications & Portals</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="rs-featured__item">
+        <div class="rs-featured__item h-100">
           <div class="rs-featured__icon">
             <img width="70" src="assets/images/featured/ecommerce-basket.png" alt="" />
             <h4 class="title">
-              Ecommerce <br />
-              Development
+              Graphic Design <br />
+              Services
             </h4>
           </div>
           <div class="rs-featured__list-box">
             <ul>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-magento.png" alt="" />
+                  <i class="ri-brush-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Magento</a>
+                <a href="services">Logo & Brand Identity</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-big-commerce.png" alt="" />
+                  <i class="ri-layout-masonry-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">BigCommerce</a>
+                <a href="services">UI/UX Design</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-ubercart.png" alt="" />
+                  <i class="ri-image-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Ubercart</a>
+                <a href="services">Social Media Graphics</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-prettershop.png" alt="" />
+                  <i class="ri-booklet-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Prettershop</a>
+                <a href="services">Marketing Materials</a>
               </li>
               <li>
                 <div class="icon">
-                  <img src="assets/images/featured/technology-virtumart.png" alt="" />
+                  <i class="ri-box-3-line" style="font-size: 24px; color: #ff5e14;"></i>
                 </div>
-                <a href="service-details-3">Virtumart</a>
+                <a href="services">Packaging Design</a>
               </li>
             </ul>
           </div>
@@ -494,11 +409,10 @@
               <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon" />
             </div>
             <h2 class="title split-in-fade">
-              Reasons to count on us
+              Why Partner With Us?
             </h2>
             <p>
-              Bring to the table win-win survival strategies to ensure
-              proactive domination At the end of the day.
+              We architect bespoke IT solutions that optimize efficiency and catalyze growth. Our team is committed to your triumph, providing round-the-clock support and seasoned expertise.
             </p>
           </div>
           <div class="rs-why-choose__item-list">
@@ -508,9 +422,9 @@
                   <img src="assets/images/why-choose/ch-ico2.png" alt="" />
                 </div>
                 <div class="content">
-                  <h4 class="title">First Growing Process</h4>
+                  <h4 class="title">Proven Expertise</h4>
                   <p>
-                    Bring to the table win-win survival strategies to ensur.
+                    Over 5 years of pioneering IT excellence, empowering businesses to evolve and thrive through transformative technology.
                   </p>
                 </div>
               </li>
@@ -519,17 +433,10 @@
                   <img src="assets/images/why-choose/ch-ico3.png" alt="" />
                 </div>
                 <div class="content">
-                  <h4 class="title">Dedicated Support 24/7</h4>
-                  <p>Leverage agile frameworks to provide a robust.</p>
-                </div>
-              </li>
-              <li>
-                <div class="thumb">
-                  <img src="assets/images/why-choose/ch-ico1.png" alt="" />
-                </div>
-                <div class="content">
-                  <h4 class="title">AI Machine & Deep Learning</h4>
-                  <p>Podcasting operational change management inside.</p>
+                  <h4 class="title">Unwavering Support</h4>
+                  <p>
+                    A dedicated technical team available 24/7, ensuring your business operations remain seamless and uninterrupted.
+                  </p>
                 </div>
               </li>
             </ul>
@@ -548,33 +455,33 @@
       <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="rs-counter__item">
           <div class="icon">
-            <img width="53" src="assets/images/counter/mobile-device.png" alt="" />
+            <i class="ri-briefcase-4-line" style="font-size: 45px; color: #ff5e14;"></i>
           </div>
-          <span><span class="rs-count odometer" data-count="3020">00</span>+</span>
+          <span><span class="rs-count odometer" data-count="150">00</span>+</span>
           <h4 class="title">
-            Apps <br />
-            Developed
+            Projects <br />
+            Completed
           </h4>
         </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="rs-counter__item">
           <div class="icon">
-            <img width="70" src="assets/images/counter/desktop-device.png" alt="" />
+            <i class="ri-macbook-line" style="font-size: 45px; color: #ff5e14;"></i>
           </div>
-          <span><span class="rs-count odometer" data-count="2019">00</span>+</span>
+          <span><span class="rs-count odometer" data-count="120">00</span>+</span>
           <h4 class="title">
-            Web <br />
-            Developed
+            Websites <br />
+            Launched
           </h4>
         </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="rs-counter__item">
           <div class="icon">
-            <img width="70" src="assets/images/counter/customer-service-3.png" alt="" />
+            <i class="ri-emotion-happy-line" style="font-size: 45px; color: #ff5e14;"></i>
           </div>
-          <span><span class="rs-count odometer" data-count="2600">00</span>+</span>
+          <span><span class="rs-count odometer" data-count="100">00</span>+</span>
           <h4 class="title">
             Happy <br />
             Clients
@@ -584,36 +491,36 @@
       <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="rs-counter__item">
           <div class="icon">
-            <img width="70" src="assets/images/counter/db-server-2.png" alt="" />
+            <i class="ri-database-2-line" style="font-size: 45px; color: #ff5e14;"></i>
           </div>
-          <span><span class="rs-count odometer" data-count="1200">00</span>+</span>
+          <span><span class="rs-count odometer" data-count="50">00</span>+</span>
           <h4 class="title">
             Data <br />
-            Science
+            Projects
           </h4>
         </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="rs-counter__item">
           <div class="icon">
-            <img width="70" src="assets/images/counter/rate3.png" alt="" />
+            <i class="ri-chat-smile-3-line" style="font-size: 45px; color: #ff5e14;"></i>
           </div>
-          <span><span class="rs-count odometer" data-count="1750">00</span>+</span>
+          <span><span class="rs-count odometer" data-count="500">00</span>+</span>
           <h4 class="title">
             Customer <br />
-            Ratingsd
+            Reviews
           </h4>
         </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="rs-counter__item">
           <div class="icon">
-            <img width="70" src="assets/images/counter/document.png" alt="" />
+            <i class="ri-checkbox-circle-line" style="font-size: 45px; color: #ff5e14;"></i>
           </div>
-          <span><span class="rs-count odometer" data-count="4560">00</span>+</span>
+          <span><span class="rs-count odometer" data-count="150">00</span>+</span>
           <h4 class="title">
-            Projects <br />
-            Delivered
+            Successful <br />
+            Deliveries
           </h4>
         </div>
       </div>
@@ -637,10 +544,7 @@
             Who we work with
           </h2>
           <p>
-            Phosfluorescently engage worldwide methodologies with in
-            web-enabled technology. Interactively coordinate proactive
-            e-commerce via process-centric "outside the box" thinking
-            Completely pursue technology scalable.
+            Collaborating with visionaries across the spectrum, from agile startups to industry giants. Our mission is to deliver scalable technology that evolves in tandem with your ambitions.
           </p>
           <a class="main-btn" href="appointment">Let's Work Together <i class="ri-arrow-right-fill"></i></a>
         </div>
@@ -753,8 +657,8 @@
             <div class="icon">
               <img src="assets/images/progress/progress-icon-1.png" alt="" />
             </div>
-            <h4 class="title">Requirement</h4>
-            <p>Podcasting operational change management</p>
+            <h4 class="title">Planning</h4>
+            <p>We analyze your requirements to create a strategic roadmap for success.</p>
           </div>
         </div>
       </div>
@@ -767,8 +671,8 @@
             <div class="icon">
               <img src="assets/images/progress/progress-icon-2.png" alt="" />
             </div>
-            <h4 class="title">UI/UX Design</h4>
-            <p>Podcasting operational change management</p>
+            <h4 class="title">Design</h4>
+            <p>Our team designs intuitive and scalable solutions tailored to your needs.</p>
           </div>
         </div>
       </div>
@@ -781,8 +685,8 @@
             <div class="icon">
               <img src="assets/images/progress/progress-icon-3.png" alt="" />
             </div>
-            <h4 class="title">Prototype</h4>
-            <p>Podcasting operational change management</p>
+            <h4 class="title">Development</h4>
+            <p>We build robust applications using cutting-edge technologies.</p>
           </div>
         </div>
       </div>
@@ -795,8 +699,8 @@
             <div class="icon">
               <img src="assets/images/progress/progress-icon-4.png" alt="" />
             </div>
-            <h4 class="title">Development</h4>
-            <p>Podcasting operational change management</p>
+            <h4 class="title">Delivery</h4>
+            <p>We ensure smooth deployment and provide ongoing support.</p>
           </div>
         </div>
       </div>
@@ -832,66 +736,40 @@
             data-ipad-device-nav="true" data-ipad-device-dots="false" data-ipad-device2="2" data-ipad-device-nav2="true"
             data-ipad-device-dots2="false" data-md-device="2" data-lg-device="2" data-md-device-nav="true"
             data-md-device-dots="false" data-doteach="false">
-            <div class="items">
-              <div class="rs-case-study__slider-item">
-                <img src="assets/images/case-study/Portfolio-3.jpg" alt="" />
-                <div class="rs-item-content">
-                  <a href="project-details">
-                    <h3 class="title">Graphic Design</h3>
-                    <span>Graphic Testing</span>
-                  </a>
-                </div>
-                <div class="rs-item-link">
-                  <a href="project-details">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 18" fill="none">
-                      <path
-                        d="M15.0052 5.11205L2.11729 18L0 15.8827L12.8864 2.99476H1.52883V0H18V16.4712H15.0052V5.11205Z"
-                        fill="#F26F20"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="items">
-              <div class="rs-case-study__slider-item">
-                <img src="assets/images/case-study/Portfolio-2.jpg" alt="" />
-                <div class="rs-item-content">
-                  <a href="project-details">
-                    <h3 class="title">Web Design</h3>
-                    <span>Graphic Testing</span>
-                  </a>
-                </div>
-                <div class="rs-item-link">
-                  <a href="project-details">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 18" fill="none">
-                      <path
-                        d="M15.0052 5.11205L2.11729 18L0 15.8827L12.8864 2.99476H1.52883V0H18V16.4712H15.0052V5.11205Z"
-                        fill="#F26F20"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="items">
-              <div class="rs-case-study__slider-item">
-                <img src="assets/images/case-study/Portfolio-1.jpg" alt="" />
-                <div class="rs-item-content">
-                  <a href="project-details">
-                    <h3 class="title">Product Design</h3>
-                    <span>Graphic Testing</span>
-                  </a>
-                </div>
-                <div class="rs-item-link">
-                  <a href="project-details">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 18" fill="none">
-                      <path
-                        d="M15.0052 5.11205L2.11729 18L0 15.8827L12.8864 2.99476H1.52883V0H18V16.4712H15.0052V5.11205Z"
-                        fill="#F26F20"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
+            <?php
+            // Fetch recent projects
+            $stmt_projects = $pdo->query("SELECT * FROM projects ORDER BY created_at DESC LIMIT 6");
+            if ($stmt_projects->rowCount() > 0) {
+                while ($project = $stmt_projects->fetch()) {
+                    $project_img = !empty($project['image']) ? "assets/images/project/" . $project['image'] : "assets/images/case-study/Portfolio-1.jpg";
+                    ?>
+                    <div class="items">
+                      <div class="rs-case-study__slider-item">
+                        <img src="<?php echo htmlspecialchars($project_img); ?>" alt="<?php echo htmlspecialchars($project['title']); ?>" />
+                        <div class="rs-item-content">
+                          <a href="project-details.php?slug=<?php echo htmlspecialchars($project['slug']); ?>">
+                            <h3 class="title"><?php echo htmlspecialchars($project['title']); ?></h3>
+                            <span><?php echo htmlspecialchars($project['industry'] ?? 'Project'); ?></span>
+                          </a>
+                        </div>
+                        <div class="rs-item-link">
+                          <a href="project-details.php?slug=<?php echo htmlspecialchars($project['slug']); ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 18" fill="none">
+                              <path
+                                d="M15.0052 5.11205L2.11729 18L0 15.8827L12.8864 2.99476H1.52883V0H18V16.4712H15.0052V5.11205Z"
+                                fill="#F26F20"></path>
+                            </svg>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <?php
+                }
+            } else {
+                // Fallback content or empty
+                echo '<div class="items"><p>No projects found.</p></div>';
+            }
+            ?>
           </div>
         </div>
       </div>
@@ -925,360 +803,102 @@
       data-mobile-device-nav="true" data-mobile-device-dots="false" data-ipad-device="2" data-ipad-device-nav="true"
       data-ipad-device-dots="false" data-ipad-device2="2" data-ipad-device-nav2="true" data-ipad-device-dots2="false"
       data-md-device="2" data-lg-device="3" data-md-device-nav="true" data-md-device-dots="false" data-doteach="false">
-      <div class="rs-testimonial__item">
-        <div class="rs-testimonial-content-box">
-          <p>
-            Worldwide phosfluorescently engage  methodologies with in
-            web-enabled technology. Interactively coordinate proactive
-            e-commerce via.
-          </p>
-          <div class="rs-ratings">
-            <img src="assets/images/testimonial/rating-1.png" alt="" />
-          </div>
-          <div class="rs-quote">
-            <img src="assets/images/testimonial/quote-white.svg" alt="" />
-          </div>
-        </div>
-        <div class="rs-testimonial-user">
-          <div class="thumb">
-            <img src="assets/images/testimonial/testi1.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h4 class="title">Matthew Taylor</h4>
-            <span>SEO & Founder, Facebook</span>
-            <div class="country">
-              <img src="assets/images/testimonial/flag-1.jpg" alt="" />
-              <span> New York, USA</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="rs-testimonial__item">
-        <div class="rs-testimonial-content-box">
-          <p>
-            Engage worldwide phosfluorescently methodologies with in
-            web-enabled technology. Interactively coordinate proactive
-            e-commerce via.
-          </p>
-          <div class="rs-ratings">
-            <img src="assets/images/testimonial/rating-1.png" alt="" />
-          </div>
-          <div class="rs-quote">
-            <img src="assets/images/testimonial/quote-white.svg" alt="" />
-          </div>
-        </div>
-        <div class="rs-testimonial-user">
-          <div class="thumb">
-            <img src="assets/images/testimonial/testi2.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h4 class="title">Lynda Robards</h4>
-            <span>Company SEO, Google</span>
-            <div class="country">
-              <img src="assets/images/testimonial/flag-2.jpg" alt="" />
-              <span>Canada</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="rs-testimonial__item">
-        <div class="rs-testimonial-content-box">
-          <p>
-            Worldwide engage phosfluorescently methodologies with in
-            web-enabled technology. Interactively coordinate proactive
-            e-commerce via.
-          </p>
-          <div class="rs-ratings">
-            <img src="assets/images/testimonial/rating-1.png" alt="" />
-          </div>
-          <div class="rs-quote">
-            <img src="assets/images/testimonial/quote-white.svg" alt="" />
-          </div>
-        </div>
-        <div class="rs-testimonial-user">
-          <div class="thumb">
-            <img src="assets/images/testimonial/testi3.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h4 class="title">Esther Howard</h4>
-            <span>CEO & Founder</span>
-            <div class="country">
-              <img src="assets/images/testimonial/flag-3.jpg" alt="" />
-              <span>Donkey Town, UK</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="rs-testimonial__item">
-        <div class="rs-testimonial-content-box">
-          <p>
-            Phosfluorescently worldwide engage methodologies with in
-            web-enabled technology. Interactively coordinate proactive
-            e-commerce via.
-          </p>
-          <div class="rs-ratings">
-            <img src="assets/images/testimonial/rating-1.png" alt="" />
-          </div>
-          <div class="rs-quote">
-            <img src="assets/images/testimonial/quote-white.svg" alt="" />
-          </div>
-        </div>
-        <div class="rs-testimonial-user">
-          <div class="thumb">
-            <img src="assets/images/testimonial/testi4.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h4 class="title">Ana Martins</h4>
-            <span>CEO, Bribbble LLC</span>
-            <div class="country">
-              <img src="assets/images/testimonial/flag-4.jpg" alt="" />
-              <span> Madrid, Spain</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="rs-testimonial__item">
-        <div class="rs-testimonial-content-box">
-          <p>
-            Phosfluorescently engage worldwide methodologies with in
-            web-enabled technology. Interactively coordinate proactive
-            e-commerce via.
-          </p>
-          <div class="rs-ratings">
-            <img src="assets/images/testimonial/rating-1.png" alt="" />
-          </div>
-          <div class="rs-quote">
-            <img src="assets/images/testimonial/quote-white.svg" alt="" />
-          </div>
-        </div>
-        <div class="rs-testimonial-user">
-          <div class="thumb">
-            <img src="assets/images/testimonial/testi5.jpg" alt="" />
-          </div>
-          <div class="content">
-            <h4 class="title">Nicolas Ribeiro</h4>
-            <span>HR, Envato</span>
-            <div class="country">
-              <img src="assets/images/testimonial/flag-5.jpg" alt="" />
-              <span>Sydney, Australia</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php
+      // Fetch testimonials
+      $stmt_testimonials = $pdo->query("SELECT * FROM testimonials ORDER BY id DESC LIMIT 6");
+      if ($stmt_testimonials->rowCount() > 0) {
+          while ($testimonial = $stmt_testimonials->fetch()) {
+              $testimonial_img = !empty($testimonial['image']) ? "assets/images/testimonial/" . $testimonial['image'] : "assets/images/testimonial/testi1.jpg";
+              ?>
+              <div class="rs-testimonial__item">
+                <div class="rs-testimonial-content-box">
+                  <p>
+                    <?php echo htmlspecialchars($testimonial['content']); ?>
+                  </p>
+                  <div class="rs-ratings">
+                    <img src="assets/images/testimonial/rating-1.png" alt="" />
+                  </div>
+                  <div class="rs-quote">
+                    <img src="assets/images/testimonial/quote-white.svg" alt="" />
+                  </div>
+                </div>
+                <div class="rs-testimonial-user">
+                  <div class="thumb" style="background: #F26F20; display: flex; align-items: center; justify-content: center; height: 65px;">
+                    <i class="ri-user-voice-fill" style="font-size: 30px; color: #fff;"></i>
+                  </div>
+                  <div class="content">
+                    <h4 class="title"><?php echo htmlspecialchars($testimonial['name']); ?></h4>
+                    <span><?php echo htmlspecialchars($testimonial['designation']); ?></span>
+                  </div>
+                </div>
+              </div>
+              <?php
+          }
+      } else {
+          echo '<div class="col-12 text-center"><p>No testimonials found.</p></div>';
+      }
+      ?>
     </div>
   </div>
 </section>
 <!--======== Testimonial Ends ========-->
 
-<!--======== Brand Start ========-->
-<div class="rs-brand pb-90 pt-85">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="rs-brand__top-title">
-          <img src="assets/images/heart-pulse-rate-orange-2.svg" alt="" />
-          <span>More than 5K+ Brands with work Techyrushi</span>
-          <img src="assets/images/heart-pulse-rate-orange.svg" alt="" />
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="rs-brand__slider">
-          <div class="rs-carousel owl-carousel nav-style1" data-loop="true" data-items="5" data-margin="0"
-            data-autoplay="true" data-hoverpause="true" data-autoplay-timeout="3000" data-smart-speed="500"
-            data-dots="false" data-nav="false" data-nav-speed="false" data-center-mode="false" data-mobile-device="2"
-            data-mobile-device-nav="false" data-mobile-device-dots="false" data-ipad-device="4"
-            data-ipad-device-nav="false" data-ipad-device-dots="false" data-ipad-device2="3"
-            data-ipad-device-nav2="false" data-ipad-device-dots2="false" data-md-device="4" data-lg-device="5"
-            data-md-device-nav="false" data-md-device-dots="false" data-doteach="false">
-            <div class="rs-brand-slider-item">
-              <a href="#">
-                <img src="assets/images/brand/partner1.png" alt="" />
-                <img class="item-2" src="assets/images/brand/partner-white-1.png" alt="" />
-              </a>
-            </div>
-            <div class="rs-brand-slider-item">
-              <a href="#">
-                <img src="assets/images/brand/partner2.png" alt="" />
-                <img class="item-2" src="assets/images/brand/partner-white-2.png" alt="" />
-              </a>
-            </div>
-            <div class="rs-brand-slider-item">
-              <a href="#">
-                <img src="assets/images/brand/partner3.png" alt="" />
-                <img class="item-2" src="assets/images/brand/partner-white-3.png" alt="" />
-              </a>
-            </div>
-            <div class="rs-brand-slider-item">
-              <a href="#">
-                <img src="assets/images/brand/partner4.png" alt="" />
-                <img class="item-2" src="assets/images/brand/partner-white-4.png" alt="" />
-              </a>
-            </div>
-            <div class="rs-brand-slider-item">
-              <a href="#">
-                <img src="assets/images/brand/partner5.png" alt="" />
-                <img class="item-2" src="assets/images/brand/partner-white-5.png" alt="" />
-              </a>
-            </div>
-            <div class="rs-brand-slider-item">
-              <a href="#">
-                <img src="assets/images/brand/partner6.png" alt="" />
-                <img class="item-2" src="assets/images/brand/partner-white-6.png" alt="" />
-              </a>
-            </div>
-            <div class="rs-brand-slider-item">
-              <a href="#">
-                <img src="assets/images/brand/partner7.png" alt="" />
-                <img class="item-2" src="assets/images/brand/partner-white-7.png" alt="" />
-              </a>
-            </div>
-            <div class="rs-brand-slider-item">
-              <a href="#">
-                <img src="assets/images/brand/partner8.png" alt="" />
-                <img class="item-2" src="assets/images/brand/partner-white-8.png" alt="" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--======== Brand Ends ========-->
+<!-- Brand Section Removed -->
 
-<!--======== Team Start ========-->
-<section class="rs-team pt-120">
-  <div class="man-thumb">
-    <img src="assets/images/team/gentleman.png" alt="" />
-  </div>
+<!--======== FAQ Start ========-->
+<section class="rs-faq pt-120 pb-120">
   <div class="container">
     <div class="row">
-      <div class="col-lg-3"></div>
-      <div class="col-lg-6">
-        <div class="rs-section-title">
+      <div class="col-lg-12">
+        <div class="rs-section-title text-center">
           <div class="top-sub-heading">
-            <img src="assets/images/heart-pulse-rate-white.svg" alt="icon" />
-            <span>Team Member</span>
-            <img src="assets/images/heart-pulse-rate-white.svg" alt="icon" />
+            <img src="assets/images/heart-pulse-rate-orange-2.svg" alt="icon" />
+            <span style="color:#F26F20">FAQ</span>
+            <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon" />
           </div>
-          <h2 class="title split-in-fade">
-            Our experienced experts for your support
-          </h2>
+          <h2 class="title split-in-fade">Frequently Asked Questions</h2>
         </div>
       </div>
-      <div class="col-lg-3"></div>
     </div>
-    <div class="rs-carousel owl-carousel rs-team__slider-box" data-loop="true" data-items="4" data-margin="30"
-      data-autoplay="true" data-hoverpause="true" data-autoplay-timeout="5000" data-smart-speed="800" data-dots="false"
-      data-nav="true" data-nav-speed="false" data-center-mode="false" data-mobile-device="1"
-      data-mobile-device-nav="true" data-mobile-device-dots="false" data-ipad-device="3" data-ipad-device-nav="true"
-      data-ipad-device-dots="false" data-ipad-device2="2" data-ipad-device-nav2="true" data-ipad-device-dots2="false"
-      data-md-device="3" data-lg-device="4" data-md-device-nav="true" data-md-device-dots="false" data-doteach="false">
-      <div class="rs-team__single-item">
-        <div class="rs-thumb-wrap">
-          <div class="rs-thumb">
-            <img src="assets/images/team/team_img_5.jpg" alt="" />
-            <div class="rs-team-social">
-              <a href="#"><i class="fa fa-facebook-f"></i></a>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="rs-faq__wrapper">
+          <?php
+          try {
+            $stmt_faq = $pdo->query("SELECT * FROM faqs ORDER BY display_order ASC, created_at DESC");
+            $faq_count = 0;
+            while ($faq = $stmt_faq->fetch()) {
+              $faq_count++;
+              $active_class = ($faq_count == 1) ? 'active' : '';
+              $num = str_pad($faq_count, 2, '0', STR_PAD_LEFT);
+          ?>
+            <div class="accordion <?php echo $active_class; ?>">
+              <div class="accordion_tab <?php echo $active_class; ?>">
+                <?php echo $num . ' ' . htmlspecialchars($faq['question']); ?>
+                <div class="accordion_arrow">
+                  <i class="ri-add-fill"></i>
+                </div>
+              </div>
+              <div class="accordion_content">
+                <div class="accordion_item">
+                  <p><?php echo nl2br(htmlspecialchars($faq['answer'])); ?></p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="content">
-          <a href="team-details">John Bradshaw</a>
-          <span>Senior Advisor</span>
-        </div>
-      </div>
-      <div class="rs-team__single-item">
-        <div class="rs-thumb-wrap">
-          <div class="rs-thumb">
-            <img src="assets/images/team/team_img_1.jpg" alt="" />
-            <div class="rs-team-social">
-              <a href="#"><i class="fa fa-facebook-f"></i></a>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="content">
-          <a href="team-details">Nick Powel</a>
-          <span>Leader</span>
-        </div>
-      </div>
-      <div class="rs-team__single-item">
-        <div class="rs-thumb-wrap">
-          <div class="rs-thumb">
-            <img src="assets/images/team/team_img_2.jpg" alt="" />
-            <div class="rs-team-social">
-              <a href="#"><i class="fa fa-facebook-f"></i></a>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="content">
-          <a href="team-details">Elizabeth Layla</a>
-          <span>Designer</span>
-        </div>
-      </div>
-      <div class="rs-team__single-item">
-        <div class="rs-thumb-wrap">
-          <div class="rs-thumb">
-            <img src="assets/images/team/team_img_4.jpg" alt="" />
-            <div class="rs-team-social">
-              <a href="#"><i class="fa fa-facebook-f"></i></a>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="content">
-          <a href="team-details">Paul Walker</a>
-          <span>Director</span>
-        </div>
-      </div>
-      <div class="rs-team__single-item">
-        <div class="rs-thumb-wrap">
-          <div class="rs-thumb">
-            <img src="assets/images/team/team_img_6.jpg" alt="" />
-            <div class="rs-team-social">
-              <a href="#"><i class="fa fa-facebook-f"></i></a>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="content">
-          <a href="team-details">Patricia Gable</a>
-          <span>Marketing manager</span>
-        </div>
-      </div>
-      <div class="rs-team__single-item">
-        <div class="rs-thumb-wrap">
-          <div class="rs-thumb">
-            <img src="assets/images/team/team_img_7.jpg" alt="" />
-            <div class="rs-team-social">
-              <a href="#"><i class="fa fa-facebook-f"></i></a>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="content">
-          <a href="team-details">Amber Austin</a>
-          <span>Operation Manager</span>
+          <?php 
+            }
+          } catch (Exception $e) { 
+          } 
+          ?>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!--======== Team Ends ========-->
+<!--======== FAQ Ends ========-->
 
 <!--======== Newsletter Start ========-->
-<section class="rs-newsletter">
+<section class="rs-newsletter pt-120">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -1311,7 +931,7 @@
         <div class="rs-section-title black">
           <div class="top-sub-heading">
             <img src="assets/images/heart-pulse-rate-orange-2.svg" alt="icon" />
-            <span>Recent News</span>
+            <span>Recent Blogs</span>
             <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon" />
           </div>
           <h2 class="title split-in-fade">
@@ -1321,12 +941,31 @@
       </div>
     </div>
     <div class="row">
+      <?php
+      try {
+        $stmt_home_blog = $pdo->query("SELECT b.*, c.name as category_name 
+            FROM blog_posts b 
+            LEFT JOIN blog_categories c ON b.category_id = c.id 
+            WHERE b.status='published' 
+            ORDER BY b.created_at DESC 
+            LIMIT 3");
+        
+        if ($stmt_home_blog->rowCount() > 0) {
+          while ($post = $stmt_home_blog->fetch()) {
+          $img_src = !empty($post['image']) ? "assets/images/blog/" . $post['image'] : "assets/images/no-image.jpg";
+          $author = !empty($post['author']) ? $post['author'] : 'Admin';
+          $date = date('M d, Y', strtotime($post['created_at']));
+            $cat_name = !empty($post['category_name']) ? $post['category_name'] : 'Uncategorized';
+            $description = substr(strip_tags($post['content']), 0, 100) . '...';
+      ?>
       <div class="col-lg-4">
         <div class="rs-blog__single">
           <div class="thumb">
-            <img src="assets/images/blog/blog-1.jpg" alt="" />
+            <a href="blog-single.php?slug=<?php echo $post['slug']; ?>">
+                <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($post['title']); ?>" />
+            </a>
             <div class="rs-contact-icon">
-              <a href="#"><svg width="14" height="16" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+              <a href="blog-single.php?slug=<?php echo $post['slug']; ?>"><svg width="14" height="16" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M3.70371 13.1768L7.90054e-06 14L0.823208 10.2963C0.28108 9.28226 -0.00172329 8.14985 7.90054e-06 7C7.90054e-06 3.1339 3.13391 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14C5.85015 14.0017 4.71774 13.7189 3.70371 13.1768Z"
                     fill="white"></path>
@@ -1335,139 +974,49 @@
           </div>
           <div class="content">
             <div class="rs-blog-category">
-              <a href="#">
+              <a href="blog.php?category=<?php echo $post['category_id']; ?>">
                 <div class="icon"></div>
-                Application
+                <?php echo htmlspecialchars($cat_name); ?>
               </a>
             </div>
             <h3 class="title">
-              <a href="blog-single">Tips to help you build your social media</a>
+              <a href="blog-single.php?slug=<?php echo $post['slug']; ?>"><?php echo htmlspecialchars($post['title']); ?></a>
             </h3>
             <ul>
-              <li>Mar 16, 2023</li>
+              <li><?php echo $date; ?></li>
               <li>
                 <div class="rs-icon"></div>
-                8 min read
+                By <?php echo htmlspecialchars($author); ?>
               </li>
             </ul>
             <p>
-              Podcasting operational change management inside of workflows
-              to establish a...
+              <?php echo htmlspecialchars($description); ?>
             </p>
             <div class="rs-blog-author">
               <div class="user">
                 <a href="#">
                   <div class="author-thumb">
-                    <img src="assets/images/testimonial/testi1.jpg" alt="" />
+                    <img src="assets/images/avatar/default-50x50.gif" alt="" />
                   </div>
-                  <span>by Techyrushi</span>
+                  <span>by <?php echo htmlspecialchars($author); ?></span>
                 </a>
               </div>
               <div class="rs-link">
-                <a href="blog-single">Read Post <i class="ri-arrow-right-fill"></i></a>
+                <a href="blog-single.php?slug=<?php echo $post['slug']; ?>">Read Post <i class="ri-arrow-right-fill"></i></a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="rs-blog__single">
-          <div class="thumb">
-            <img src="assets/images/blog/blog-2.jpg" alt="" />
-            <div class="rs-contact-icon">
-              <a href="#"><svg width="14" height="16" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M3.70371 13.1768L7.90054e-06 14L0.823208 10.2963C0.28108 9.28226 -0.00172329 8.14985 7.90054e-06 7C7.90054e-06 3.1339 3.13391 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14C5.85015 14.0017 4.71774 13.7189 3.70371 13.1768Z"
-                    fill="white"></path>
-                </svg></a>
-            </div>
-          </div>
-          <div class="content">
-            <div class="rs-blog-category">
-              <a href="#">
-                <div class="icon"></div>
-                Technology
-              </a>
-            </div>
-            <h3 class="title">
-              <a href="blog-single">Tips to help you build your social media</a>
-            </h3>
-            <ul>
-              <li>Mar 16, 2023</li>
-              <li>
-                <div class="rs-icon"></div>
-                8 min read
-              </li>
-            </ul>
-            <p>
-              Podcasting operational change management inside of workflows
-              to establish a...
-            </p>
-            <div class="rs-blog-author">
-              <div class="user">
-                <a href="#">
-                  <div class="author-thumb">
-                    <img src="assets/images/testimonial/testi2.jpg" alt="" />
-                  </div>
-                  <span>by Techyrushi</span>
-                </a>
-              </div>
-              <div class="rs-link">
-                <a href="blog-single">Read Post <i class="ri-arrow-right-fill"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="rs-blog__single">
-          <div class="thumb">
-            <img src="assets/images/blog/blog-3.jpg" alt="" />
-            <div class="rs-contact-icon">
-              <a href="#"><svg width="14" height="16" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M3.70371 13.1768L7.90054e-06 14L0.823208 10.2963C0.28108 9.28226 -0.00172329 8.14985 7.90054e-06 7C7.90054e-06 3.1339 3.13391 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14C5.85015 14.0017 4.71774 13.7189 3.70371 13.1768Z"
-                    fill="white"></path>
-                </svg></a>
-            </div>
-          </div>
-          <div class="content">
-            <div class="rs-blog-category">
-              <a href="#">
-                <div class="icon"></div>
-                performance
-              </a>
-            </div>
-            <h3 class="title">
-              <a href="blog-single">Tips to help you build your social media</a>
-            </h3>
-            <ul>
-              <li>Mar 16, 2023</li>
-              <li>
-                <div class="rs-icon"></div>
-                8 min read
-              </li>
-            </ul>
-            <p>
-              Podcasting operational change management inside of workflows
-              to establish a...
-            </p>
-            <div class="rs-blog-author">
-              <div class="user">
-                <a href="#">
-                  <div class="author-thumb">
-                    <img src="assets/images/testimonial/testi3.jpg" alt="" />
-                  </div>
-                  <span>by Techyrushi</span>
-                </a>
-              </div>
-              <div class="rs-link">
-                <a href="blog-single">Read Post <i class="ri-arrow-right-fill"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php 
+          }
+        } else {
+          echo '<div class="col-12 text-center"><p>No blog posts found.</p></div>';
+        }
+      } catch (Exception $e) { 
+        echo '<div class="col-12 text-center"><p>No blog posts found.</p></div>';
+      }
+      ?>
     </div>
     <div class="rs-blog__btn">
       <a class="main-btn" href="blog">View All Blog <i class="ri-arrow-right-fill"></i></a>
@@ -1490,22 +1039,21 @@
           <h2 class="title split-in-fade">Send message</h2>
         </div>
         <div class="rs-contact__form-box">
-          <form id="contact-form" action="https://demo.rstheme.com/html/Techyrushi/assets/php/contact.php"
-            method="post">
+          <form id="contact-form" action="submit_contact.php" method="post">
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-box">
-                  <input type="text" id="name" name="name" placeholder="Your Name" />
+                  <input type="text" id="name" name="name" placeholder="Your Name" required />
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="input-box">
-                  <input type="email" id="email" name="email" placeholder="Your Email" />
+                  <input type="email" id="email" name="email" placeholder="Your Email" required />
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="input-box">
-                  <input type="text" id="topic" name="topic" placeholder="Your Topic" />
+                  <input type="text" id="subject" name="subject" placeholder="Your Topic" required />
                 </div>
               </div>
               <div class="col-lg-6">
@@ -1515,7 +1063,8 @@
               </div>
               <div class="col-lg-12">
                 <div class="input-box">
-                  <textarea name="message" id="message" placeholder="Message..."></textarea>
+                  <textarea name="message" id="message" placeholder="Message..." required></textarea>
+                  <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
                   <button type="submit" class="main-btn">
                     Send Message <i class="ri-arrow-right-fill"></i>
                   </button>

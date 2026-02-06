@@ -16955,6 +16955,13 @@ html.menu-is-open .menu-canvas-layer {
     color: #ffffff;
 }
 
+/* Active Tab Style for Non-Index Pages (Orange like Home) */
+.full-width-header .rs-header.other-page-header .menu-area:not(.sticky) .main-menu ul.nav-menu > li > a.active,
+.full-width-header .rs-header.other-page-header .menu-area:not(.sticky) .main-menu ul.nav-menu > li > a:hover {
+    color: #F26F20;
+    background: #F26F201A;
+}
+
 /* White logo for other pages (Global, Not Sticky) */
 .full-width-header .rs-header.other-page-header .menu-area:not(.sticky) .logo-area img:not(.dark-logo) {
     display: none;
@@ -16973,62 +16980,15 @@ html.menu-is-open .menu-canvas-layer {
     color: #ffffff !important;
 }
 
-/* Sticky State - Revert to Default (Black/Colored) */
-/* The default sticky styles in style.css will handle color: #323f7c for menu items */
-/* We just need to ensure our white overrides don't apply when .sticky is present. */
-/* By using :not(.sticky) above, we automatically fall back to default sticky styles! */
+/* Mobile View (max-width: 991px) adjustments */
+@media only screen and (max-width: 991px) {
+    /* Show black logo (techyrushi.png) and hide white logo (dark-logo) on mobile for non-index pages */
+    .full-width-header .rs-header.other-page-header .menu-area:not(.sticky) .logo-area img:not(.dark-logo) {
+        display: block !important;
+    }
+    .full-width-header .rs-header.other-page-header .menu-area:not(.sticky) .logo-area img.dark-logo {
+        display: none !important;
+    }
+}
 
-/* However, we need to ensure the Logo swaps back correctly on sticky if the default sticky logic doesn't handle .dark-logo hiding */
-/* Default sticky logic (lines ~947) handles showing/hiding first/last child of logo-area a */
-/* But here we have img:not(.dark-logo) and img.dark-logo inside the same <a> tag or separate? */
-/* In header.php:
-   <a href="index">
-       <img src="..." />
-       <img class="dark-logo" src="..." />
-   </a>
-*/
-/* Default sticky CSS:
-   .logo-area a:first-child { display: none; } -> This might hide the whole anchor?
-   Wait, header.php has TWO <a> tags in logo-area!
-   Line 79: <a href="index">...</a>
-   Line 83: <a href="index">...</a>
-   This is weird.
-*/
-
-/* Let's look at header.php lines 78-87 again */
-/*
-<div class="logo-area">
-    <a href="index">
-        <img src="assets/images/techyrushi.png" alt="" />
-        <img class="dark-logo" src="assets/images/footer_logo.png" alt="" />
-    </a>
-    <a href="index">
-        <img src="assets/images/techyrushi.png" alt="" />   
-        <img class="dark-logo" src="assets/images/footer_logo.png" alt="" />
-    </a>
-</div>
-*/
-/*
-If there are two <a> tags, the default sticky CSS (lines 947-952) does:
-.sticky .logo-area a:first-child { display: none; }
-.sticky .logo-area a:last-child { display: block; }
-This implies one <a> is for non-sticky and one is for sticky?
-If so, my previous logic modifying images INSIDE the anchor might have been targeting the wrong thing or both.
-*/
-
-/* My previous logic:
-.full-width-header .rs-header.other-page-header .menu-area .rs-menu-area .logo-area img:not(.dark-logo) { display: none; }
-This hides the normal image in ALL anchors.
-*/
-
-/* If I switch to using :not(.sticky) on my overrides, then when .sticky is present:
-   1. My overrides stop applying.
-   2. The default sticky CSS takes over:
-      - Hides first <a>
-      - Shows second <a>
-   3. The second <a> contains BOTH images.
-   4. Without my override, both images might show? Or does default CSS hide one?
-*/
-
-/* I need to check if there is default CSS hiding .dark-logo. */
-/* I'll check style.css for .dark-logo rules */
+/* End of Custom Styles */
