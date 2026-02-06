@@ -1,5 +1,7 @@
 <?php include 'includes/header.php'; ?>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--======== Banner Start ========-->
 <section class="rs-banner">
   <div class="rs-banner-slider">
@@ -1039,7 +1041,7 @@
           <h2 class="title split-in-fade">Send message</h2>
         </div>
         <div class="rs-contact__form-box">
-          <form id="contact-form" action="submit_contact.php" method="post">
+          <form id="contact-form" class="ajax-form" action="submit_contact.php" method="post">
             <div class="row">
               <div class="col-lg-6">
                 <div class="input-box">
