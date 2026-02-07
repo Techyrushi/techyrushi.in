@@ -161,6 +161,13 @@
 <script src="js/template.js"></script>
 <script src="js/notifications.js"></script>
 
+<?php if (basename($_SERVER['PHP_SELF']) == 'index.php'): ?>
+    <!-- Morris.js charts -->
+    <script src="../assets/vendor_components/raphael/raphael.min.js"></script>
+    <script src="../assets/vendor_components/morris.js/morris.min.js"></script>
+    <script src="js/pages/dashboard_analytics.js"></script>
+<?php endif; ?>
+
 </body>
 
 <!-- Mirrored from master-admin-template.multipurposethemes.com/bs5/real-estate/addproperty.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 02 Feb 2026 09:56:06 GMT -->

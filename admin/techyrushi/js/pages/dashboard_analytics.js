@@ -55,4 +55,20 @@ $(function () {
             console.error('Error loading analytics:', error);
         }
     });
+
+    // Force resize trigger to ensure charts render correctly within their containers
+    function triggerResize() {
+        window.dispatchEvent(new Event('resize'));
+        $(window).trigger('resize');
+    }
+
+    // Trigger on load and after a short delay to handle dynamic content loading
+    $(window).on('load', function() {
+        triggerResize();
+        setTimeout(triggerResize, 500);
+        setTimeout(triggerResize, 1000);
+    });
+    
+    // Also trigger immediately
+    setTimeout(triggerResize, 500);
 });

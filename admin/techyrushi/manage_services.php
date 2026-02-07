@@ -28,19 +28,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $slug = $_POST['slug'] ?: strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
         $short_description = $_POST['short_description'];
         $content = $_POST['content'];
-        $icon = $_POST['icon'];
         $display_order = $_POST['display_order'];
         $id = $_POST['id']; // Empty if adding
+
+        // Handle Icon Upload
+        $icon = isset($_POST['current_icon']) ? $_POST['current_icon'] : '';
+        if (isset($_FILES['icon']) && $_FILES['icon']['error'] == 0) {
+            $target_dir_icon = "../../assets/images/service/";
+            if (!is_dir($target_dir_icon)) mkdir($target_dir_icon, 0777, true);
+            
+            $extension = pathinfo($_FILES["icon"]["name"], PATHINFO_EXTENSION);
+            $filename_icon = time() . "_icon_" . uniqid() . "." . $extension;
+            $target_file_icon = $target_dir_icon . $filename_icon;
+            
+            if (move_uploaded_file($_FILES["icon"]["tmp_name"], $target_file_icon)) {
+                $icon = $filename_icon;
+            }
+        }
 
         // Handle Image Upload
         $image = $_POST['current_image'];
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+            require_once 'includes/image_helper.php';
             $target_dir = "../../assets/images/service/";
             if (!is_dir($target_dir)) mkdir($target_dir, 0777, true);
-            $filename = time() . "_" . basename($_FILES["image"]["name"]);
+            
+            $extension = pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            $filename = time() . "_" . uniqid() . "." . $extension;
             $target_file = $target_dir . $filename;
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            
+            // Resize to 1200x650
+            if (resizeImage($_FILES["image"]["tmp_name"], $target_file, 1200, 650)) {
                 $image = $filename;
+            } else {
+                // Fallback
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                    $image = $filename;
+                }
             }
         }
 
@@ -121,7 +145,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         }
                                         echo '</td>';
                                         echo '<td>' . htmlspecialchars($row['title']) . '</td>';
-                                        echo '<td><i class="' . htmlspecialchars($row['icon']) . '"></i> ' . htmlspecialchars($row['icon']) . '</td>';
+                                        echo '<td>';
+                                        if ($row['icon']) {
+                                            echo '<img src="../../assets/images/service/' . htmlspecialchars($row['icon']) . '" width="40" alt="Icon">';
+                                        }
+                                        echo '</td>';
                                         echo '<td>' . $row['display_order'] . '</td>';
                                         echo '<td>
                                             <a href="manage_services.php?action=edit&id=' . $row['id'] . '" class="btn btn-info btn-sm">Edit</a>
@@ -205,12 +233,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <div class="form-group">
                                 <label>Content</label>
-                                <textarea name="content" id="editor1" class="form-control" rows="10"><?php echo htmlspecialchars($service['content']); ?></textarea>
+                                <textarea name="content" id="editor" class="form-control" rows="10"><?php echo htmlspecialchars($service['content']); ?></textarea>
                             </div>
+                         
+                            <input type="hidden" name="current_icon" value="<?php echo $service['icon']; ?>">
                             <div class="form-group">
-                                <label>Icon Class (e.g., flaticon-web, fa fa-cog)</label>
-                                <input type="text" name="icon" class="form-control" value="<?php echo htmlspecialchars($service['icon']); ?>">
+                                <label>Icon Image</label>
+                                <input type="file" name="icon" class="form-control">
+                                <?php if ($service['icon']): ?>
+                                    <div class="mt-2">
+                                        <img src="../../assets/images/service/<?php echo $service['icon']; ?>" width="50">
+                                    </div>
+                                <?php endif; ?>
                             </div>
+
                             <div class="form-group">
                                 <label>Display Order</label>
                                 <input type="number" name="display_order" class="form-control" value="<?php echo $service['display_order']; ?>">
@@ -240,15 +276,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
 
-                <!-- CKEditor -->
-                <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-                <script>
-                    CKEDITOR.replace( 'editor1', {
-                        filebrowserUploadUrl: 'upload_image.php',
-                        filebrowserUploadMethod: 'form'
-                    });
+                <!-- TinyMCE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    if(document.getElementById('editor')) {
+        tinymce.init({
+            selector: '#editor',
+            height: 400,
+            plugins: 'image link lists media table code help wordcount',
+            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | code',
+            images_upload_url: 'upload_image.php',
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            branding: false,
+            promotion: false
+        });
+    }
 
-                    // Form Submission Safeguard (Spinner & Disable)
+    // Form Submission Safeguard (Spinner & Disable)
                     document.addEventListener('DOMContentLoaded', function() {
                         var forms = document.querySelectorAll('form');
                         forms.forEach(function(form) {

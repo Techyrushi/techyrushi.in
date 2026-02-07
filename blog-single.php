@@ -27,7 +27,8 @@ if (isset($_GET['slug'])) {
     exit();
 }
 
-$img = !empty($post['thumbnail']) ? "assets/images/blog/" . $post['thumbnail'] : "assets/images/no-image.jpg";
+$img = !empty($post['image']) ? "assets/images/blog/" . $post['image'] : "assets/images/no-image.jpg";
+$img_src = !empty($post['image']) ? "assets/images/uploads/" . $post['image'] : "assets/images/no-image.jpg";  
 $date = date('F d, Y', strtotime($post['created_at']));
 $author = !empty($post['author']) ? $post['author'] : 'Admin';
 $category = !empty($post['category_name']) ? $post['category_name'] : 'Uncategorized';
@@ -58,16 +59,30 @@ $category = !empty($post['category_name']) ? $post['category_name'] : 'Uncategor
         <div class="row">
             <div class="col-lg-8">
                 <div class="rs-blog-standard-item rs-blog-details-content mt-40">
-                    <div class="rs-thumb">
-                        <img src="<?php echo $img; ?>" alt="<?php echo htmlspecialchars($post['title']); ?>">
-                    </div>
-                    <div class="rs-meta-box">
-                        <ul>
-                            <li><i class="ri-user-3-line"></i> <?php echo htmlspecialchars($author); ?></li>
-                            <li><i class="ri-calendar-line"></i> <?php echo $date; ?></li>
-                            <li><a href="blog.php?category=<?php echo $post['category_id']; ?>"><i class="ri-price-tag-3-line"></i> <?php echo htmlspecialchars($category); ?></a></li>
-                            <li><i class="ri-eye-line"></i> <?php echo $post['views'] ?? 0; ?> Views</li>
+                    <div class="rs-meta-box mb-20" style="background: transparent; padding: 0;">
+                        <ul style="display: flex; flex-wrap: wrap; gap: 20px; padding: 0; list-style: none;">
+                            <li style="display: flex; align-items: center; font-size: 14px; color: #666; font-weight: 500;">
+                                <i class="ri-user-3-line" style="margin-right: 8px; color: #ff5e14; font-size: 18px;"></i> 
+                                <span style="text-transform: uppercase;"><?php echo htmlspecialchars($author); ?></span>
+                            </li>
+                            <li style="display: flex; align-items: center; font-size: 14px; color: #666; font-weight: 500;">
+                                <i class="ri-calendar-line" style="margin-right: 8px; color: #ff5e14; font-size: 18px;"></i> 
+                                <?php echo $date; ?>
+                            </li>
+                            <li style="display: flex; align-items: center; font-size: 14px; color: #666; font-weight: 500;">
+                                <a href="blog.php?category=<?php echo $post['category_id']; ?>" style="color: #666; display: flex; align-items: center;">
+                                    <i class="ri-price-tag-3-line" style="margin-right: 8px; color: #ff5e14; font-size: 18px;"></i> 
+                                    <?php echo htmlspecialchars($category); ?>
+                                </a>
+                            </li>
+                            <li style="display: flex; align-items: center; font-size: 14px; color: #666; font-weight: 500;">
+                                <i class="ri-eye-line" style="margin-right: 8px; color: #ff5e14; font-size: 18px;"></i> 
+                                <?php echo $post['views'] ?? 0; ?> Views
+                            </li>
                         </ul>
+                    </div>
+                    <div class="rs-thumb">
+                        <img src="<?php echo $img; ?>" alt="<?php echo htmlspecialchars($post['title']); ?>" class="img-fluid w-100" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                     </div>
                     
                     <div class="rs-content">
@@ -78,7 +93,15 @@ $category = !empty($post['category_name']) ? $post['category_name'] : 'Uncategor
                             <?php
                             $video_url = $post['video_url'];
                             $embed_url = '';
-                            if (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
+                            $is_video_file = false;
+                            
+                            // Check for direct video files
+                            $video_exts = ['mp4', 'webm', 'ogg', 'mov'];
+                            $ext = strtolower(pathinfo($video_url, PATHINFO_EXTENSION));
+                            
+                            if (in_array($ext, $video_exts)) {
+                                $is_video_file = true;
+                            } elseif (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
                                 preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $video_url, $matches);
                                 if (isset($matches[1])) {
                                     $embed_url = "https://www.youtube.com/embed/" . $matches[1];
@@ -88,9 +111,17 @@ $category = !empty($post['category_name']) ? $post['category_name'] : 'Uncategor
                                 if (isset($matches[1])) {
                                     $embed_url = "https://player.vimeo.com/video/" . $matches[1];
                                 }
+                            } else {
+                                // Try generic embed for other URLs
+                                $embed_url = $video_url;
                             }
                             
-                            if ($embed_url) {
+                            if ($is_video_file) {
+                                echo '<video controls style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                                        <source src="' . $video_url . '" type="video/' . $ext . '">
+                                        Your browser does not support the video tag.
+                                      </video>';
+                            } elseif ($embed_url) {
                                 echo '<iframe src="' . $embed_url . '" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" allowfullscreen></iframe>';
                             }
                             ?>
@@ -98,7 +129,18 @@ $category = !empty($post['category_name']) ? $post['category_name'] : 'Uncategor
                         <?php endif; ?>
 
                         <div class="blog-desc">
-                            <?php echo $post['content']; ?>
+                            <?php 
+                            $content = $post['content'];
+                            // Fix image paths for frontend display
+                            // Remove relative paths from admin panel
+                            $content = str_replace('../../assets/images/uploads/', 'assets/images/uploads/', $content);
+                            // Remove absolute project paths to make them relative to root
+                            $content = str_replace('/techzen/assets/images/uploads/', 'assets/images/uploads/', $content);
+                            // Handle potential escaped slashes from DB storage
+                            $content = str_replace('\\/techzen\\/assets\\/images\\/uploads\\/', 'assets/images/uploads/', $content);
+                            
+                            echo $content; 
+                            ?>
                         </div>
 
                         <?php if (!empty($post['attachment'])): ?>

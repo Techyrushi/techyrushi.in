@@ -47,7 +47,7 @@
                                                 <span><i class="ri-price-tag-3-line"></i><a href="#"><?php echo htmlspecialchars($row['industry'] ?? 'Project'); ?></a></span>
                                             </div>
                                             <div class="rs-text">
-                                                <p><?php echo htmlspecialchars(substr(strip_tags($row['description']), 0, 100)) . '...'; ?></p>
+                                                <p class="project-desc"><?php echo htmlspecialchars(substr(strip_tags($row['description']), 0, 250)) . '...'; ?></p>
                                             </div>
                                         </div>
                                         <div class="rs-link">

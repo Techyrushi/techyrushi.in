@@ -1,7 +1,7 @@
 <?php
 if (!empty($posts)) {
     foreach ($posts as $row) {
-        $img = !empty($row['thumbnail']) ? "assets/images/blog/" . $row['thumbnail'] : "assets/images/no-image.jpg";
+        $img = !empty($row['image']) ? "assets/images/blog/" . $row['image'] : "assets/images/no-image.jpg";    
         $date = date('F d, Y', strtotime($row['created_at']));
         $author = !empty($row['author']) ? $row['author'] : 'Admin';
         $category = !empty($row['category_name']) ? $row['category_name'] : 'Uncategorized';

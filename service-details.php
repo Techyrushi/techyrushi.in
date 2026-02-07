@@ -83,15 +83,22 @@ if (isset($_GET['slug'])) {
                 <div class="rs-service-details__content">
                     <div class="rs-thumb">
                         <?php if (!empty($service['image'])): ?>
-                            <img src="assets/images/service/<?php echo htmlspecialchars($service['image']); ?>" alt="<?php echo htmlspecialchars($service['title']); ?>">
+                            <img src="assets/images/service/<?php echo htmlspecialchars($service['image']); ?>" alt="<?php echo htmlspecialchars($service['title']); ?>" class="img-fluid w-100">
                         <?php else: ?>
-                            <img src="assets/images/service/service-details-thumb-2.jpg" alt="<?php echo htmlspecialchars($service['title']); ?>">
+                            <img src="assets/images/service/service-details-thumb-2.jpg" alt="<?php echo htmlspecialchars($service['title']); ?>" class="img-fluid w-100">
                         <?php endif; ?>
                     </div>
                     <div class="rs-content">
                         <h3 class="title"><?php echo htmlspecialchars($service['title']); ?></h3>
                         
-                        <?php echo $service['content']; ?>
+                        <?php 
+                        $content = $service['content'];
+                        // Fix image paths for frontend display
+                        $content = str_replace('../../assets/images/uploads/', 'assets/images/uploads/', $content);
+                        $content = str_replace('/techzen/assets/images/uploads/', 'assets/images/uploads/', $content);
+                        $content = str_replace('\\/techzen\\/assets\\/images\\/uploads\\/', 'assets/images/uploads/', $content);
+                        echo $content; 
+                        ?>
 
                     </div>
                 </div>

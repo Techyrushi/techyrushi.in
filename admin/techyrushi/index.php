@@ -29,6 +29,77 @@ $subscriber_count = $stmt->fetchColumn();
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
+    <style>
+        .box {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: none;
+            margin-bottom: 30px;
+            background: #fff;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .box-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #f0f2f5;
+            background: transparent;
+        }
+        .box-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .box-body {
+            padding: 1.5rem;
+        }
+        
+        /* Chart Containers */
+        #visitor-chart, #browser-chart, #engagement-chart {
+            width: 100% !important;
+            height: 350px !important;
+            max-height: 350px !important;
+        }
+        
+        .box-body {
+            overflow: hidden; /* Prevent chart overflow */
+        }
+        
+        /* Stats Cards */
+        .box.pull-up {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            position: relative;
+        }
+        .box.pull-up::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .box.pull-up:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .box .font-size-60 {
+            font-size: 80px !important;
+            line-height: 1;
+            opacity: 0.4;
+            transition: all 0.3s;
+        }
+        .box.pull-up:hover .font-size-60 {
+            opacity: 0.8;
+            transform: scale(1.1) rotate(5deg);
+        }
+    </style>
     <div class="container-full">
         <!-- Main content -->
         <section class="content">
@@ -118,23 +189,23 @@ $subscriber_count = $stmt->fetchColumn();
 
             <!-- Analytics Charts -->
             <div class="row">
-                <div class="col-xl-8 col-12">
+                <div class="col-xl-8 col-lg-7 col-12">
                     <div class="box">
                         <div class="box-header with-border">
                             <h4 class="box-title text-primary"><i class="mdi mdi-chart-line me-2"></i> Visitor Analytics (Last 7 Days)</h4>
                         </div>
                         <div class="box-body">
-                            <div id="visitor-chart" style="height: 350px;"></div>
+                            <div id="visitor-chart"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-12">
+                <div class="col-xl-4 col-lg-5 col-12">
                     <div class="box">
                         <div class="box-header with-border">
                             <h4 class="box-title text-info"><i class="mdi mdi-google-chrome me-2"></i> Browser Usage</h4>
                         </div>
                         <div class="box-body">
-                            <div id="browser-chart" style="height: 350px;"></div>
+                            <div id="browser-chart"></div>
                         </div>
                     </div>
                 </div>
@@ -148,7 +219,7 @@ $subscriber_count = $stmt->fetchColumn();
                             <h4 class="box-title text-success"><i class="mdi mdi-chart-bar me-2"></i> Engagement (Enquiries vs Appointments) - Last 6 Months</h4>
                         </div>
                         <div class="box-body">
-                            <div id="engagement-chart" style="height: 350px;"></div>
+                            <div id="engagement-chart"></div>
                         </div>
                     </div>
                 </div>

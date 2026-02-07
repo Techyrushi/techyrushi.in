@@ -73,16 +73,23 @@ include 'includes/header.php';
                 <div class="rs-project-details__content mt-30 ">
                     <div class="rs-thumb">
                         <?php if (!empty($project['image'])): ?>
-                            <img src="assets/images/project/<?php echo htmlspecialchars($project['image']); ?>" alt="<?php echo htmlspecialchars($project['title']); ?>">
+                            <img src="assets/images/project/<?php echo htmlspecialchars($project['image']); ?>" alt="<?php echo htmlspecialchars($project['title']); ?>" class="img-fluid w-100">
                         <?php else: ?>
-                            <img src="assets/images/project/project-details-thumb.jpg" alt="">
+                            <img src="assets/images/project/project-details-thumb.jpg" alt="" class="img-fluid w-100">
                         <?php endif; ?>
                     </div>
                     <div class="rs-project-content">
                         <h2 class="title"><?php echo htmlspecialchars($project['title']); ?></h2>
                         
                         <div class="project-description">
-                            <?php echo $project['description']; ?>
+                            <?php 
+                            $content = $project['description'];
+                            // Fix image paths for frontend display
+                            $content = str_replace('../../assets/images/uploads/', 'assets/images/uploads/', $content);
+                            $content = str_replace('/techzen/assets/images/uploads/', 'assets/images/uploads/', $content);
+                            $content = str_replace('\\/techzen\\/assets\\/images\\/uploads\\/', 'assets/images/uploads/', $content);
+                            echo $content; 
+                            ?>
                         </div>
 
                         <?php
@@ -110,10 +117,24 @@ include 'includes/header.php';
                         <div class="rs-project-bar mt-50">
                             <div class="rs-social">
                                 <ul>
-                                    <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
-                                    <li><a href="#"><i class="ri-twitter-x-fill"></i></a></li>
-                                    <li><a href="#"><i class="ri-linkedin-fill"></i></a></li>
-                                    <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                                    <li>
+                                        <a href="https://www.facebook.com/people/Techyrushitalks/61587126144718/" target="_blank"><i class="ri-facebook-fill"></i></a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="https://twitter.com/techyrushi" target="_blank"><i class="ri-twitter-x-fill"></i></a>
+                                    </li> -->
+                                    <li>
+                                        <a href="https://www.instagram.com/techyrushi.talks?igsh=c2J5Njc1NDZ2dzJv" target="_blank"><i class="ri-instagram-fill"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://github.com/Techyrushi" target="_blank"><i class="ri-github-fill"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/in/chavanrushikesh/" target="_blank"><i class="ri-linkedin-fill"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="http://wa.me/+918446225859?text=Hello%21+I+am+contacting+you+from+the+Techyrushi+business+website.+I+would+like+to+know+more+about+your+services." target="_blank"><i class="ri-whatsapp-fill"></i></a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="rs-project-switch-btn">
@@ -208,7 +229,7 @@ include 'includes/header.php';
                         <span>Contact Us</span>
                         <img src="assets/images/project/phone-white.png" alt="">
                         <div class="rs-link">
-                            <a href="tel:+85526691234">+855 (2669) 1234</a>
+                            <a href="tel:+918446225859">(+91) 8446225859</a>
                         </div>
                     </div>
                 </div>

@@ -7613,6 +7613,12 @@ html.menu-is-open .menu-canvas-layer {
 }
 .rs-featured-2__item .rs-content .rs-icon img {
   padding: 1px;
+  filter: brightness(0) invert(1);
+  transition: all 0.3s;
+}
+
+.rs-featured-2__item:hover .rs-content .rs-icon img {
+  filter: none;
 }
 .rs-featured-2__item .rs-content .rs-link {
   font-size: 16px;
@@ -9218,31 +9224,41 @@ html.menu-is-open .menu-canvas-layer {
 }
 .rs-case-study__slider .owl-nav {
   position: absolute;
-  left: -56%;
-  bottom: 10px;
+  left: 50%;
+  bottom: -90px;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(130deg, #f24c1a 0%, #f28e26 100%);
+  padding: 20px 45px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1549px) {
   .rs-case-study__slider .owl-nav {
-    bottom: -25px;
-    left: -66%;
+    bottom: -90px;
+    left: 50%;
   }
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .rs-case-study__slider .owl-nav {
-    bottom: -40px;
-    left: -70%;
+    bottom: -90px;
+    left: 50%;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .rs-case-study__slider .owl-nav {
-    display: none;
+    display: flex;
+    bottom: -90px;
+    left: 50%;
   }
 }
 @media only screen and (max-width: 767px) {
   .rs-case-study__slider .owl-nav {
-    display: none;
+    display: flex;
+    bottom: -90px;
+    left: 50%;
   }
 }
 .rs-case-study__slider .owl-nav .owl-prev {
@@ -9250,15 +9266,16 @@ html.menu-is-open .menu-canvas-layer {
   transition: all linear 0.3s;
 }
 .rs-case-study__slider .owl-nav .owl-prev i {
-  font-size: 18px;
+  font-size: 15px;
   margin-right: 6px;
 }
 .rs-case-study__slider .owl-nav .owl-prev span {
   font-size: 16px;
   text-transform: uppercase;
+  font-weight: 400;
 }
 .rs-case-study__slider .owl-nav .owl-prev:hover {
-  color: #F26F20;
+  color: #0a0a0a;
 }
 .rs-case-study__slider .owl-nav .owl-next {
   color: #ffffff;
@@ -9276,21 +9293,46 @@ html.menu-is-open .menu-canvas-layer {
   color: #ffffff;
 }
 .rs-case-study__slider .owl-nav .owl-next i {
-  font-size: 18px;
+  font-size: 15px;
   margin-left: 6px;
 }
 .rs-case-study__slider .owl-nav .owl-next span {
   font-size: 16px;
   text-transform: uppercase;
+  font-weight: 400;
 }
 .rs-case-study__slider .owl-nav .owl-next:hover {
-  color: #F26F20;
+  color: #0a0a0a;
 }
 .rs-case-study__slider-item {
   border-radius: 10px;
   overflow: hidden;
   position: relative;
   z-index: 10;
+}
+
+.rs-case-study__slider-item img {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  object-position: center;
+  transition: all 0.5s ease;
+}
+
+.rs-case-study__slider-item:hover img {
+  transform: scale(1.05);
+}
+
+@media only screen and (max-width: 991px) {
+  .rs-case-study__slider-item img {
+    height: 450px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .rs-case-study__slider-item img {
+    height: 350px;
+  }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .rs-case-study__slider-item {
@@ -9435,6 +9477,23 @@ html.menu-is-open .menu-canvas-layer {
   right: 20px;
   opacity: 1;
   visibility: visible;
+}
+
+@media only screen and (max-width: 991px) {
+  .rs-case-study__slider-item::before {
+    opacity: 1;
+    visibility: visible;
+  }
+  .rs-case-study__slider-item .rs-item-content {
+    opacity: 1;
+    visibility: visible;
+    left: 20px;
+  }
+  .rs-case-study__slider-item .rs-item-link {
+    right: 20px;
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 /*----------------------------------------*/
@@ -14023,8 +14082,16 @@ html.menu-is-open .menu-canvas-layer {
   margin: 10px -1px 0;
   overflow: hidden;
 }
+.rs-project-3__item .rs-thumb {
+  height: 400px;
+  overflow: hidden;
+}
+
 .rs-project-3__item .rs-thumb img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
 }
 .rs-project-3__item .rs-project-overlay {
   position: absolute;
@@ -14112,6 +14179,11 @@ html.menu-is-open .menu-canvas-layer {
 }
 .rs-project-3__item .rs-project-overlay .rs-project-content .rs-text p {
   color: #ffffff;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0;
 }
 @media only screen and (max-width: 1599px) {
   .rs-project-3__item .rs-project-overlay .rs-project-content .rs-text p {
@@ -16992,3 +17064,10 @@ html.menu-is-open .menu-canvas-layer {
 }
 
 /* End of Custom Styles */
+
+/* Responsive Content Images */
+.blog-desc img, .project-description img, .rs-service-details__content .rs-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}

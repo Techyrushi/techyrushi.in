@@ -17,16 +17,18 @@
         <?php
         $stmt_recent = $pdo->query("SELECT * FROM blog_posts WHERE status='published' ORDER BY created_at DESC LIMIT 5");
         while ($recent = $stmt_recent->fetch()) {
-            $img = !empty($recent['thumbnail']) ? "assets/images/blog/" . $recent['thumbnail'] : "assets/images/no-image.jpg";
-            echo '<div class="rs-blog-sidebar-item mb-25">
+            $img = !empty($recent['image']) ? "assets/images/blog/" . $recent['image'] : "assets/images/no-image.jpg";  
+            ?>
+            <div class="rs-blog-sidebar-item mb-25">
                     <div class="rs-thumb">
-                        <a href="blog/' . $recent['slug'] . '"><img src="' . $img . '" alt=""></a>
+                        <a href="blog/<?php echo $recent['slug']; ?>"><img src="<?php echo $img; ?>" alt="" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;"></a>
                     </div>
                     <div class="rs-content">
-                        <h5 class="title"><a href="blog/' . $recent['slug'] . '">' . htmlspecialchars($recent['title']) . '</a></h5>
-                        <span><i class="ri-calendar-line"></i> ' . date('F d, Y', strtotime($recent['created_at'])) . ' </span>
+                        <h5 class="title"><a href="blog/<?php echo $recent['slug']; ?>"><?php echo htmlspecialchars($recent['title']); ?></a></h5>
+                        <span><i class="ri-calendar-line"></i> <?php echo date('F d, Y', strtotime($recent['created_at'])); ?> </span>
                     </div>
-                </div>';
+                </div>
+            <?php
         }
         ?>
     </div>

@@ -29,12 +29,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Handle Image Upload
         $image = $_POST['current_image'];
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+            require_once 'includes/image_helper.php';
             $target_dir = "../../assets/images/blog/";
             if (!is_dir($target_dir)) mkdir($target_dir, 0777, true);
-            $filename = time() . "_" . basename($_FILES["image"]["name"]);
+            
+            $extension = pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            $filename = time() . "_" . uniqid() . "." . $extension;
             $target_file = $target_dir . $filename;
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            
+            // Resize to 1200x650
+            if (resizeImage($_FILES["image"]["tmp_name"], $target_file, 1200, 650)) {
                 $image = $filename;
+            } else {
+                // Fallback if resize fails
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                    $image = $filename;
+                }
             }
         }
 
@@ -242,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <input type="text" name="tags" class="form-control" value="<?php echo htmlspecialchars($post['tags']); ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label>Featured Image</label>
+                                        <label>Featured Image (1200x650)</label>
                                         <input type="file" name="image" class="form-control">
                                         <?php if ($post['image']): ?>
                                             <div class="mt-2">
@@ -286,12 +296,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
-<!-- CKEditor -->
-<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<!-- TinyMCE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     if(document.getElementById('editor')) {
-        CKEDITOR.replace('editor');
+        tinymce.init({
+            selector: '#editor',
+            height: 400,
+            plugins: 'image link lists media table code help wordcount',
+            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | code',
+            images_upload_url: 'upload_image.php',
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            branding: false,
+            promotion: false
+        });
     }
 
     // Form Submission Safeguard (Spinner & Disable)
@@ -314,3 +333,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         });
     });
 </script>
+<?php require_once 'includes/footer.php'; ?>

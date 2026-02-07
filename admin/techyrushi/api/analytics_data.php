@@ -23,42 +23,65 @@ try {
     ");
     $response['daily_visits'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Browser stats (simplified from user_agent)
-    // In a real app, we'd use a parser. Here we'll just do simple LIKE checks or just group by user_agent if not too many
-    // Let's try to extract common browsers with SQL if possible, or just send raw user_agent counts and let JS parse (or just show raw top 5)
-    
-    // For simplicity, let's just group by user_agent string limited to 50 chars or similar
-    // Or better, let's just return top 5 user agents
+    // Browser stats - Fetch more to ensure we capture different versions/browsers
     $stmt = $pdo->query("
         SELECT user_agent, COUNT(*) as count 
         FROM visitor_analytics 
         GROUP BY user_agent 
         ORDER BY count DESC 
-        LIMIT 5
+        LIMIT 100
     ");
     $browsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    // Simple JS-side parsing is better, but let's try to make it cleaner here
     $clean_browsers = [];
     foreach ($browsers as $b) {
         $agent = $b['user_agent'];
+        $count = $b['count'];
         $name = 'Other';
-        if (strpos($agent, 'Chrome') !== false) $name = 'Chrome';
-        elseif (strpos($agent, 'Firefox') !== false) $name = 'Firefox';
-        elseif (strpos($agent, 'Safari') !== false) $name = 'Safari';
-        elseif (strpos($agent, 'Edge') !== false) $name = 'Edge';
+        
+        // Check specific browsers first (order matters)
+        if (stripos($agent, 'Edg') !== false) {
+            $name = 'Edge';
+        } elseif (stripos($agent, 'OPR') !== false || stripos($agent, 'Opera') !== false) {
+            $name = 'Opera';
+        } elseif (stripos($agent, 'Chrome') !== false) {
+            $name = 'Chrome';
+        } elseif (stripos($agent, 'Firefox') !== false) {
+            $name = 'Firefox';
+        } elseif (stripos($agent, 'Safari') !== false) {
+            $name = 'Safari';
+        } elseif (stripos($agent, 'Trident') !== false || stripos($agent, 'MSIE') !== false) {
+            $name = 'Internet Explorer';
+        }
         
         if (isset($clean_browsers[$name])) {
-            $clean_browsers[$name] += $b['count'];
+            $clean_browsers[$name] += $count;
         } else {
-            $clean_browsers[$name] = $b['count'];
+            $clean_browsers[$name] = $count;
         }
     }
     
-    // Format for Morris Donut: {label: "Name", value: 123}
+    // Sort by count desc
+    arsort($clean_browsers);
+    
+    // Keep top 5 and group others
+    $final_browsers = [];
+    $other_count = 0;
+    $i = 0;
     foreach ($clean_browsers as $name => $count) {
-        $response['browser_stats'][] = ['label' => $name, 'value' => $count];
+        if ($i < 4) {
+            $final_browsers[] = ['label' => $name, 'value' => $count];
+        } else {
+            $other_count += $count;
+        }
+        $i++;
     }
+    
+    if ($other_count > 0) {
+        $final_browsers[] = ['label' => 'Other', 'value' => $other_count];
+    }
+    
+    $response['browser_stats'] = $final_browsers;
 
     // Engagement Stats (Enquiries vs Appointments) - Last 6 Months
     $stmt = $pdo->query("

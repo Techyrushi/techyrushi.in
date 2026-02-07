@@ -136,6 +136,7 @@ include 'includes/sidebar.php';
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $index = 1;
                                         // Count total records for pagination
                                         $count_stmt = $pdo->query("SELECT COUNT(*) FROM blog_categories");
                                         $total_records = $count_stmt->fetchColumn();
@@ -148,7 +149,7 @@ include 'includes/sidebar.php';
                                         
                                         while ($row = $stmt->fetch()) {
                                             echo '<tr>';
-                                            echo '<td>' . $row['id'] . '</td>';
+                                            echo '<td>' . $index++ . '</td>';
                                             echo '<td>' . htmlspecialchars($row['name']) . '</td>';
                                             echo '<td>
                                                 <a href="manage_blog_categories.php?edit=' . $row['id'] . '" class="btn btn-info btn-sm">Edit</a>

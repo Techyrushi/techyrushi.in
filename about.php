@@ -52,7 +52,10 @@
                         <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon">
                     </div>
                     <h2 class="title split-in-fade">Leading IT Solutions & Digital Transformation Partner</h2>
-                    <p>At Techyrushi, we don't just write code; we build the future. With over a decade of expertise, we empower businesses to navigate the digital landscape with confidence. From agile startups to established enterprises, we deliver tailored technology solutions that drive efficiency, security, and growth.</p>
+                    <p>At Techyrushi, we don't just write code; we build the future. With over a decade of expertise, we
+                        empower businesses to navigate the digital landscape with confidence. From agile startups to
+                        established enterprises, we deliver tailored technology solutions that drive efficiency,
+                        security, and growth.</p>
                     <ul>
                         <li>
                             <div class="icon">
@@ -67,7 +70,8 @@
                             <span>Technical Excellence</span>
                         </li>
                     </ul>
-                    <p>Our integrated approach ensures seamless connectivity and robust infrastructure for your business needs.</p>
+                    <p>Our integrated approach ensures seamless connectivity and robust infrastructure for your business
+                        needs.</p>
                     <a class="main-btn" href="about"> Discover More <i class="ri-arrow-right-fill"></i></a>
                 </div>
             </div>
@@ -98,7 +102,7 @@
             if ($stmt->rowCount() > 0) {
                 while ($row = $stmt->fetch()) {
                     $img_src = !empty($row['image']) ? "assets/images/service/" . $row['image'] : "assets/images/featured/featured-thumb-4.png";
-                    $icon_class = !empty($row['icon']) ? $row['icon'] : "flaticon-web"; 
+                    $icon_class = !empty($row['icon']) ? $row['icon'] : "flaticon-web";
                     ?>
                     <div class="col-lg-4 col-sm-6">
                         <div class="rs-featured-2__item">
@@ -107,12 +111,16 @@
                             </div>
                             <div class="rs-content">
                                 <div class="rs-icon">
-                                    <i class="<?php echo $icon_class; ?>" style="font-size: 40px; color: #ff5e14;"></i>
+                                    <img src="assets/images/service/<?php echo $icon_class; ?>" alt="icon">
                                 </div>
-                                <h4 class="title"><a href="service-details.php?slug=<?php echo $row['slug']; ?>"><?php echo htmlspecialchars($row['title']); ?></a></h4>
-                                <p><?php echo htmlspecialchars(substr(strip_tags($row['short_description']), 0, 100)) . '...'; ?></p>
+                                <h4 class="title"><a
+                                        href="service-details.php?slug=<?php echo $row['slug']; ?>"><?php echo htmlspecialchars($row['title']); ?></a>
+                                </h4>
+                                <p><?php echo htmlspecialchars(substr(strip_tags($row['short_description']), 0, 100)) . '...'; ?>
+                                </p>
                                 <div class="rs-link">
-                                    <a class="rs-link" href="service-details.php?slug=<?php echo $row['slug']; ?>">Read More <i class="ri-arrow-right-fill"></i></a>
+                                    <a class="rs-link" href="service-details.php?slug=<?php echo $row['slug']; ?>">Read More <i
+                                            class="ri-arrow-right-fill"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +168,8 @@
                             <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon">
                         </div>
                         <h2 class="title split-in-fade">5+ Years of Excellence in IT Innovation.</h2>
-                        <p>With over a decade of industry leadership, we deliver tailored solutions that address your unique business challenges with precision and creativity.</p>
+                        <p>With over a decade of industry leadership, we deliver tailored solutions that address your
+                            unique business challenges with precision and creativity.</p>
                     </div>
                     <div class="skill-bars">
                         <div class="rs-progress-skill why-choose-two__progress">
@@ -172,7 +181,7 @@
                             </div>
                         </div><!-- /.rs-progress -->
                         <div class="rs-progress-skill why-choose-two__progress">
-                            <h4 class="rs-progress__title">Cyber Security</h4>
+                            <h4 class="rs-progress__title">AI & Data Analytics</h4>
                             <div class="rs-progress__bar">
                                 <div class="rs-progress__inner rs-count-bar counted" data-percent="85%">
                                     <p class="rs-progress__number count-text">85%</p>
@@ -268,66 +277,68 @@
 
 <!--======== Testimonial Start ========-->
 <section class="rs-testimonial pt-20 pb-145">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-3"></div>
-      <div class="col-lg-6">
-        <div class="rs-section-title black">
-          <div class="top-sub-heading">
-            <img src="assets/images/heart-pulse-rate-orange-2.svg" alt="icon" />
-            <span>Testimonials</span>
-            <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon" />
-          </div>
-          <h2 class="title split-in-fade">
-            What Customers Said About Our Techyrushi
-          </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="rs-section-title black">
+                    <div class="top-sub-heading">
+                        <img src="assets/images/heart-pulse-rate-orange-2.svg" alt="icon" />
+                        <span>Testimonials</span>
+                        <img src="assets/images/heart-pulse-rate-orange.svg" alt="icon" />
+                    </div>
+                    <h2 class="title split-in-fade">
+                        What Customers Said About Our Techyrushi
+                    </h2>
+                </div>
+            </div>
+            <div class="col-lg-3"></div>
         </div>
-      </div>
-      <div class="col-lg-3"></div>
+        <div class="rs-carousel owl-carousel nav-style1" data-loop="true" data-items="3" data-margin="30"
+            data-autoplay="true" data-hoverpause="false" data-autoplay-timeout="5000" data-smart-speed="800"
+            data-dots="false" data-nav="true" data-nav-speed="false" data-center-mode="false" data-mobile-device="1"
+            data-mobile-device-nav="true" data-mobile-device-dots="false" data-ipad-device="2"
+            data-ipad-device-nav="true" data-ipad-device-dots="false" data-ipad-device2="2" data-ipad-device-nav2="true"
+            data-ipad-device-dots2="false" data-md-device="2" data-lg-device="3" data-md-device-nav="true"
+            data-md-device-dots="false" data-doteach="false">
+            <?php
+            // Fetch testimonials
+            $stmt_testimonials = $pdo->query("SELECT * FROM testimonials ORDER BY id DESC LIMIT 6");
+            if ($stmt_testimonials->rowCount() > 0) {
+                while ($testimonial = $stmt_testimonials->fetch()) {
+                    $testimonial_img = !empty($testimonial['image']) ? "assets/images/testimonial/" . $testimonial['image'] : "assets/images/testimonial/testi1.jpg";
+                    ?>
+                    <div class="rs-testimonial__item">
+                        <div class="rs-testimonial-content-box">
+                            <p>
+                                <?php echo htmlspecialchars($testimonial['content']); ?>
+                            </p>
+                            <div class="rs-ratings">
+                                <img src="assets/images/testimonial/rating-1.png" alt="" />
+                            </div>
+                            <div class="rs-quote">
+                                <img src="assets/images/testimonial/quote-white.svg" alt="" />
+                            </div>
+                        </div>
+                        <div class="rs-testimonial-user">
+                            <div class="thumb"
+                                style="background: #F26F20; display: flex; align-items: center; justify-content: center; height: 65px;">
+                                <i class="ri-user-voice-fill" style="font-size: 30px; color: #fff;"></i>
+                            </div>
+                            <div class="content">
+                                <h4 class="title"><?php echo htmlspecialchars($testimonial['name']); ?></h4>
+                                <span><?php echo htmlspecialchars($testimonial['designation']); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+            } else {
+                echo '<div class="col-12 text-center"><p>No testimonials found.</p></div>';
+            }
+            ?>
+        </div>
     </div>
-    <div class="rs-carousel owl-carousel nav-style1" data-loop="true" data-items="3" data-margin="30"
-      data-autoplay="true" data-hoverpause="false" data-autoplay-timeout="5000" data-smart-speed="800" data-dots="false"
-      data-nav="true" data-nav-speed="false" data-center-mode="false" data-mobile-device="1"
-      data-mobile-device-nav="true" data-mobile-device-dots="false" data-ipad-device="2" data-ipad-device-nav="true"
-      data-ipad-device-dots="false" data-ipad-device2="2" data-ipad-device-nav2="true" data-ipad-device-dots2="false"
-      data-md-device="2" data-lg-device="3" data-md-device-nav="true" data-md-device-dots="false" data-doteach="false">
-      <?php
-      // Fetch testimonials
-      $stmt_testimonials = $pdo->query("SELECT * FROM testimonials ORDER BY id DESC LIMIT 6");
-      if ($stmt_testimonials->rowCount() > 0) {
-          while ($testimonial = $stmt_testimonials->fetch()) {
-              $testimonial_img = !empty($testimonial['image']) ? "assets/images/testimonial/" . $testimonial['image'] : "assets/images/testimonial/testi1.jpg";
-              ?>
-              <div class="rs-testimonial__item">
-                <div class="rs-testimonial-content-box">
-                  <p>
-                    <?php echo htmlspecialchars($testimonial['content']); ?>
-                  </p>
-                  <div class="rs-ratings">
-                    <img src="assets/images/testimonial/rating-1.png" alt="" />
-                  </div>
-                  <div class="rs-quote">
-                    <img src="assets/images/testimonial/quote-white.svg" alt="" />
-                  </div>
-                </div>
-                <div class="rs-testimonial-user">
-                  <div class="thumb" style="background: #F26F20; display: flex; align-items: center; justify-content: center; height: 65px;">
-                    <i class="ri-user-voice-fill" style="font-size: 30px; color: #fff;"></i>
-                  </div>
-                  <div class="content">
-                    <h4 class="title"><?php echo htmlspecialchars($testimonial['name']); ?></h4>
-                    <span><?php echo htmlspecialchars($testimonial['designation']); ?></span>
-                  </div>
-                </div>
-              </div>
-              <?php
-          }
-      } else {
-          echo '<div class="col-12 text-center"><p>No testimonials found.</p></div>';
-      }
-      ?>
-    </div>
-  </div>
 </section>
 <!--======== Testimonial Ends ========-->
 

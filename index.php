@@ -25,7 +25,8 @@
                   Digital Future
                 </h1>
                 <p data-animation="fadeInLeft" data-delay="0.9s">
-                  Igniting digital transformation with future-ready technology. We turn ambitious concepts into powerful realities through expert development and strategic consulting.
+                  Igniting digital transformation with future-ready technology. We turn ambitious concepts into powerful
+                  realities through expert development and strategic consulting.
                 </p>
                 <a data-animation="fadeInUp" data-delay="1.2s" class="main-btn" href="about">Get Started <i
                     class="ri-arrow-right-fill"></i></a>
@@ -83,7 +84,8 @@
                   Innovation
                 </h1>
                 <p data-animation="fadeInLeft" data-delay="0.9s">
-                  Pioneering the next wave of digital excellence. Our bespoke IT strategies deliver robust, scalable solutions designed to propel your business forward.
+                  Pioneering the next wave of digital excellence. Our bespoke IT strategies deliver robust, scalable
+                  solutions designed to propel your business forward.
                 </p>
                 <a data-animation="fadeInUp" data-delay="1.2s" class="main-btn" href="about">Get Started <i
                     class="ri-arrow-right-fill"></i></a>
@@ -133,22 +135,23 @@
       // Fetch top 4 services
       $stmt_services = $pdo->query("SELECT * FROM services ORDER BY display_order ASC LIMIT 4");
       if ($stmt_services->rowCount() > 0) {
-          while ($service = $stmt_services->fetch()) {
-              $service_icon = !empty($service['icon']) ? $service['icon'] : "flaticon-web";
-              ?>
-              <div class="col-lg-3 col-md-6 col-sm-6 mb-30">
-                <div class="single-service__item h-100">
-                  <div class="single-service__icon">
-                     <i class="<?php echo htmlspecialchars($service_icon); ?>" style="font-size: 50px; color: #ff5e14;"></i>
-                  </div>
-                  <a href="service/<?php echo htmlspecialchars($service['slug']); ?>"><?php echo htmlspecialchars($service['title']); ?></a>
-                  <p>
-                    <?php echo htmlspecialchars(substr(strip_tags($service['short_description']), 0, 80)) . '...'; ?>
-                  </p>
-                </div>
+        while ($service = $stmt_services->fetch()) {
+          $service_icon = !empty($service['icon']) ? $service['icon'] : "flaticon-web";
+          ?>
+          <div class="col-lg-3 col-md-6 col-sm-6 mb-30">
+            <div class="single-service__item h-100">
+              <div class="single-service__icon">
+                <img src="assets/images/service/service-icon.png" alt="" />
               </div>
-              <?php
-          }
+              <a
+                href="service/<?php echo htmlspecialchars($service['slug']); ?>"><?php echo htmlspecialchars($service['title']); ?></a>
+              <p>
+                <?php echo htmlspecialchars(substr(strip_tags($service['short_description']), 0, 80)) . '...'; ?>
+              </p>
+            </div>
+          </div>
+          <?php
+        }
       }
       ?>
     </div>
@@ -193,7 +196,8 @@
             Your Catalyst for Digital Evolution and Sustainable Growth.
           </h2>
           <p>
-            We craft holistic IT ecosystems that accelerate business potential. From bespoke software engineering to strategic digital overhauls, we stand as your dedicated ally in the technological landscape.
+            We craft holistic IT ecosystems that accelerate business potential. From bespoke software engineering to
+            strategic digital overhauls, we stand as your dedicated ally in the technological landscape.
           </p>
           <ul>
             <li>
@@ -210,7 +214,8 @@
             </li>
           </ul>
           <p>
-            Driven by a passion for excellence, we engineer high-caliber solutions that not only align with your unique objectives but also redefine the boundaries of what's possible.
+            Driven by a passion for excellence, we engineer high-caliber solutions that not only align with your unique
+            objectives but also redefine the boundaries of what's possible.
           </p>
           <a class="main-btn" href="about">
             Discover More <i class="ri-arrow-right-fill"></i></a>
@@ -414,7 +419,8 @@
               Why Partner With Us?
             </h2>
             <p>
-              We architect bespoke IT solutions that optimize efficiency and catalyze growth. Our team is committed to your triumph, providing round-the-clock support and seasoned expertise.
+              We architect bespoke IT solutions that optimize efficiency and catalyze growth. Our team is committed to
+              your triumph, providing round-the-clock support and seasoned expertise.
             </p>
           </div>
           <div class="rs-why-choose__item-list">
@@ -426,7 +432,8 @@
                 <div class="content">
                   <h4 class="title">Proven Expertise</h4>
                   <p>
-                    Over 5 years of pioneering IT excellence, empowering businesses to evolve and thrive through transformative technology.
+                    Over 5 years of pioneering IT excellence, empowering businesses to evolve and thrive through
+                    transformative technology.
                   </p>
                 </div>
               </li>
@@ -437,7 +444,8 @@
                 <div class="content">
                   <h4 class="title">Unwavering Support</h4>
                   <p>
-                    A dedicated technical team available 24/7, ensuring your business operations remain seamless and uninterrupted.
+                    A dedicated technical team available 24/7, ensuring your business operations remain seamless and
+                    uninterrupted.
                   </p>
                 </div>
               </li>
@@ -546,7 +554,8 @@
             Who we work with
           </h2>
           <p>
-            Collaborating with visionaries across the spectrum, from agile startups to industry giants. Our mission is to deliver scalable technology that evolves in tandem with your ambitions.
+            Collaborating with visionaries across the spectrum, from agile startups to industry giants. Our mission is
+            to deliver scalable technology that evolves in tandem with your ambitions.
           </p>
           <a class="main-btn" href="appointment">Let's Work Together <i class="ri-arrow-right-fill"></i></a>
         </div>
@@ -742,34 +751,43 @@
             // Fetch recent projects
             $stmt_projects = $pdo->query("SELECT * FROM projects ORDER BY created_at DESC LIMIT 6");
             if ($stmt_projects->rowCount() > 0) {
-                while ($project = $stmt_projects->fetch()) {
-                    $project_img = !empty($project['image']) ? "assets/images/project/" . $project['image'] : "assets/images/case-study/Portfolio-1.jpg";
-                    ?>
-                    <div class="items">
-                      <div class="rs-case-study__slider-item">
-                        <img src="<?php echo htmlspecialchars($project_img); ?>" alt="<?php echo htmlspecialchars($project['title']); ?>" />
-                        <div class="rs-item-content">
-                          <a href="project-details.php?slug=<?php echo htmlspecialchars($project['slug']); ?>">
-                            <h3 class="title"><?php echo htmlspecialchars($project['title']); ?></h3>
-                            <span><?php echo htmlspecialchars($project['industry'] ?? 'Project'); ?></span>
-                          </a>
-                        </div>
-                        <div class="rs-item-link">
-                          <a href="project-details.php?slug=<?php echo htmlspecialchars($project['slug']); ?>">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 18" fill="none">
-                              <path
-                                d="M15.0052 5.11205L2.11729 18L0 15.8827L12.8864 2.99476H1.52883V0H18V16.4712H15.0052V5.11205Z"
-                                fill="#F26F20"></path>
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <?php
+              while ($project = $stmt_projects->fetch()) {
+                $project_img = "assets/images/case-study/Portfolio-1.jpg";
+                if (!empty($project['image'])) {
+                    $img = $project['image'];
+                    if (strpos($img, 'assets/') !== false) {
+                        $project_img = str_replace(['../../assets/', '/techzen/assets/', '\/techzen\/assets\/'], 'assets/', $img);
+                    } else {
+                        $project_img = "assets/images/project/" . $img;
+                    }
                 }
+                ?>
+                <div class="items">
+                  <div class="rs-case-study__slider-item">
+                    <img src="<?php echo htmlspecialchars($project_img); ?>"
+                      alt="<?php echo htmlspecialchars($project['title']); ?>" />
+                    <div class="rs-item-content">
+                      <a href="project/<?php echo htmlspecialchars($project['slug']); ?>">
+                        <h3 class="title"><?php echo htmlspecialchars($project['title']); ?></h3>
+                        <span><?php echo htmlspecialchars($project['industry'] ?? 'Project'); ?></span>
+                      </a>
+                    </div>
+                    <div class="rs-item-link">
+                      <a href="project/<?php echo htmlspecialchars($project['slug']); ?>">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 18 18" fill="none">
+                          <path
+                            d="M15.0052 5.11205L2.11729 18L0 15.8827L12.8864 2.99476H1.52883V0H18V16.4712H15.0052V5.11205Z"
+                            fill="#F26F20"></path>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <?php
+              }
             } else {
-                // Fallback content or empty
-                echo '<div class="items"><p>No projects found.</p></div>';
+              // Fallback content or empty
+              echo '<div class="items"><p>No projects found.</p></div>';
             }
             ?>
           </div>
@@ -781,7 +799,7 @@
 <!--======== Case Study Ends ========-->
 
 <!--======== Testimonial Start ========-->
-<section class="rs-testimonial pt-110 pb-145">
+<section class="rs-testimonial pt-110 pb-120">
   <div class="container">
     <div class="row">
       <div class="col-lg-3"></div>
@@ -809,35 +827,36 @@
       // Fetch testimonials
       $stmt_testimonials = $pdo->query("SELECT * FROM testimonials ORDER BY id DESC LIMIT 6");
       if ($stmt_testimonials->rowCount() > 0) {
-          while ($testimonial = $stmt_testimonials->fetch()) {
-              $testimonial_img = !empty($testimonial['image']) ? "assets/images/testimonial/" . $testimonial['image'] : "assets/images/testimonial/testi1.jpg";
-              ?>
-              <div class="rs-testimonial__item">
-                <div class="rs-testimonial-content-box">
-                  <p>
-                    <?php echo htmlspecialchars($testimonial['content']); ?>
-                  </p>
-                  <div class="rs-ratings">
-                    <img src="assets/images/testimonial/rating-1.png" alt="" />
-                  </div>
-                  <div class="rs-quote">
-                    <img src="assets/images/testimonial/quote-white.svg" alt="" />
-                  </div>
-                </div>
-                <div class="rs-testimonial-user">
-                  <div class="thumb" style="background: #F26F20; display: flex; align-items: center; justify-content: center; height: 65px;">
-                    <i class="ri-user-voice-fill" style="font-size: 30px; color: #fff;"></i>
-                  </div>
-                  <div class="content">
-                    <h4 class="title"><?php echo htmlspecialchars($testimonial['name']); ?></h4>
-                    <span><?php echo htmlspecialchars($testimonial['designation']); ?></span>
-                  </div>
-                </div>
+        while ($testimonial = $stmt_testimonials->fetch()) {
+          $testimonial_img = !empty($testimonial['image']) ? "assets/images/testimonial/" . $testimonial['image'] : "assets/images/testimonial/testi1.jpg";
+          ?>
+          <div class="rs-testimonial__item">
+            <div class="rs-testimonial-content-box">
+              <p>
+                <?php echo htmlspecialchars($testimonial['content']); ?>
+              </p>
+              <div class="rs-ratings">
+                <img src="assets/images/testimonial/rating-1.png" alt="" />
               </div>
-              <?php
-          }
+              <div class="rs-quote">
+                <img src="assets/images/testimonial/quote-white.svg" alt="" />
+              </div>
+            </div>
+            <div class="rs-testimonial-user">
+              <div class="thumb"
+                style="background: #F26F20; display: flex; align-items: center; justify-content: center; height: 65px;">
+                <i class="ri-user-voice-fill" style="font-size: 30px; color: #fff;"></i>
+              </div>
+              <div class="content">
+                <h4 class="title"><?php echo htmlspecialchars($testimonial['name']); ?></h4>
+                <span><?php echo htmlspecialchars($testimonial['designation']); ?></span>
+              </div>
+            </div>
+          </div>
+          <?php
+        }
       } else {
-          echo '<div class="col-12 text-center"><p>No testimonials found.</p></div>';
+        echo '<div class="col-12 text-center"><p>No testimonials found.</p></div>';
       }
       ?>
     </div>
@@ -848,7 +867,7 @@
 <!-- Brand Section Removed -->
 
 <!--======== FAQ Start ========-->
-<section class="rs-faq pt-120 pb-120">
+<section class="rs-faq pt-80 pb-120">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -873,24 +892,24 @@
               $faq_count++;
               $active_class = ($faq_count == 1) ? 'active' : '';
               $num = str_pad($faq_count, 2, '0', STR_PAD_LEFT);
-          ?>
-            <div class="accordion <?php echo $active_class; ?>">
-              <div class="accordion_tab <?php echo $active_class; ?>">
-                <?php echo $num . ' ' . htmlspecialchars($faq['question']); ?>
-                <div class="accordion_arrow">
-                  <i class="ri-add-fill"></i>
+              ?>
+              <div class="accordion <?php echo $active_class; ?>">
+                <div class="accordion_tab <?php echo $active_class; ?>">
+                  <?php echo $num . ' ' . htmlspecialchars($faq['question']); ?>
+                  <div class="accordion_arrow">
+                    <i class="ri-add-fill"></i>
+                  </div>
+                </div>
+                <div class="accordion_content">
+                  <div class="accordion_item">
+                    <p><?php echo nl2br(htmlspecialchars($faq['answer'])); ?></p>
+                  </div>
                 </div>
               </div>
-              <div class="accordion_content">
-                <div class="accordion_item">
-                  <p><?php echo nl2br(htmlspecialchars($faq['answer'])); ?></p>
-                </div>
-              </div>
-            </div>
-          <?php 
+            <?php
             }
-          } catch (Exception $e) { 
-          } 
+          } catch (Exception $e) {
+          }
           ?>
         </div>
       </div>
@@ -951,71 +970,74 @@
             WHERE b.status='published' 
             ORDER BY b.created_at DESC 
             LIMIT 3");
-        
+
         if ($stmt_home_blog->rowCount() > 0) {
           while ($post = $stmt_home_blog->fetch()) {
-          $img_src = !empty($post['image']) ? "assets/images/blog/" . $post['image'] : "assets/images/no-image.jpg";
-          $author = !empty($post['author']) ? $post['author'] : 'Admin';
-          $date = date('M d, Y', strtotime($post['created_at']));
+            $img_src = !empty($post['image']) ? "assets/images/blog/" . $post['image'] : "assets/images/no-image.jpg";
+            $author = !empty($post['author']) ? $post['author'] : 'Admin';
+            $date = date('M d, Y', strtotime($post['created_at']));
             $cat_name = !empty($post['category_name']) ? $post['category_name'] : 'Uncategorized';
             $description = substr(strip_tags($post['content']), 0, 100) . '...';
-      ?>
-      <div class="col-lg-4">
-        <div class="rs-blog__single">
-          <div class="thumb">
-            <a href="blog-single.php?slug=<?php echo $post['slug']; ?>">
-                <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($post['title']); ?>" />
-            </a>
-            <div class="rs-contact-icon">
-              <a href="blog-single.php?slug=<?php echo $post['slug']; ?>"><svg width="14" height="16" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M3.70371 13.1768L7.90054e-06 14L0.823208 10.2963C0.28108 9.28226 -0.00172329 8.14985 7.90054e-06 7C7.90054e-06 3.1339 3.13391 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14C5.85015 14.0017 4.71774 13.7189 3.70371 13.1768Z"
-                    fill="white"></path>
-                </svg></a>
-            </div>
-          </div>
-          <div class="content">
-            <div class="rs-blog-category">
-              <a href="blog.php?category=<?php echo $post['category_id']; ?>">
-                <div class="icon"></div>
-                <?php echo htmlspecialchars($cat_name); ?>
-              </a>
-            </div>
-            <h3 class="title">
-              <a href="blog-single.php?slug=<?php echo $post['slug']; ?>"><?php echo htmlspecialchars($post['title']); ?></a>
-            </h3>
-            <ul>
-              <li><?php echo $date; ?></li>
-              <li>
-                <div class="rs-icon"></div>
-                By <?php echo htmlspecialchars($author); ?>
-              </li>
-            </ul>
-            <p>
-              <?php echo htmlspecialchars($description); ?>
-            </p>
-            <div class="rs-blog-author">
-              <div class="user">
-                <a href="#">
-                  <div class="author-thumb">
-                    <img src="assets/images/avatar/default-50x50.gif" alt="" />
+            ?>
+            <div class="col-lg-4">
+              <div class="rs-blog__single">
+                <div class="thumb">
+                  <a href="blog/<?php echo $post['slug']; ?>">
+                    <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($post['title']); ?>" />
+                  </a>
+                  <div class="rs-contact-icon">
+                    <a href="blog/<?php echo $post['slug']; ?>"><svg width="14" height="16"
+                        viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M3.70371 13.1768L7.90054e-06 14L0.823208 10.2963C0.28108 9.28226 -0.00172329 8.14985 7.90054e-06 7C7.90054e-06 3.1339 3.13391 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14C5.85015 14.0017 4.71774 13.7189 3.70371 13.1768Z"
+                          fill="white"></path>
+                      </svg></a>
                   </div>
-                  <span>by <?php echo htmlspecialchars($author); ?></span>
-                </a>
-              </div>
-              <div class="rs-link">
-                <a href="blog-single.php?slug=<?php echo $post['slug']; ?>">Read Post <i class="ri-arrow-right-fill"></i></a>
+                </div>
+                <div class="content">
+                  <div class="rs-blog-category">
+                    <a href="blog?category=<?php echo $post['category_id']; ?>">
+                      <div class="icon"></div>
+                      <?php echo htmlspecialchars($cat_name); ?>
+                    </a>
+                  </div>
+                  <h3 class="title">
+                    <a
+                      href="blog/<?php echo $post['slug']; ?>"><?php echo htmlspecialchars($post['title']); ?></a>
+                  </h3>
+                  <ul>
+                    <li><?php echo $date; ?></li>
+                    <li>
+                      <div class="rs-icon"></div>
+                      By <?php echo htmlspecialchars($author); ?>
+                    </li>
+                  </ul>
+                  <p>
+                    <?php echo htmlspecialchars($description); ?>
+                  </p>
+                  <div class="rs-blog-author">
+                    <div class="user">
+                      <a href="#">
+                        <div class="author-thumb">
+                          <img src="assets/images/testimonial/samplepic.jpg" alt="" />
+                        </div>
+                        <span>by <?php echo htmlspecialchars($author); ?></span>
+                      </a>
+                    </div>
+                    <div class="rs-link">
+                      <a href="blog/<?php echo $post['slug']; ?>">Read Post <i
+                          class="ri-arrow-right-fill"></i></a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <?php 
+          <?php
           }
         } else {
           echo '<div class="col-12 text-center"><p>No blog posts found.</p></div>';
         }
-      } catch (Exception $e) { 
+      } catch (Exception $e) {
         echo '<div class="col-12 text-center"><p>No blog posts found.</p></div>';
       }
       ?>
